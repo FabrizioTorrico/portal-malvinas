@@ -50,7 +50,7 @@ export const theme: ThemeUserConfig = {
       { title: 'Linea de tiempo', link: '/#timeline' },
       { title: 'Relatos', link: '/relatos' },
       { title: 'Portal de la memoria', link: '/portal-memoria' },
-      { title: 'Archivo', link: '/links' }
+      { title: 'Archivo', link: '/archivo' }
     ]
   },
 
