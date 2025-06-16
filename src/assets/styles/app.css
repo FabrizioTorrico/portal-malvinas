@@ -45,6 +45,7 @@
 
 html {
   font-family: 'Montserrat', sans-serif;
+  --font-family-main: 'Montserrat', sans-serif;
   --font-family-montserrat: 'Montserrat';
   --font-family-balboa: 'Balboa Condensed';
   --font-family-tisa: 'Tisa Sans Pro';
