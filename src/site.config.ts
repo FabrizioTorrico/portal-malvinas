@@ -7,7 +7,7 @@ export const theme: ThemeUserConfig = {
   /** Will be used in index page & copyright declaration */
   author: 'Fabrizio Torrico, Lautaro Castro',
   /** Description metadata for your website. Can be used in page metadata. */
-  description: 'Stay hungry, stay foolish',
+  description: 'Sitio web dedicado a la Guerra de las Malvinas, con relatos, cronología y un portal de la memoria.',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** Specify the default language for this site. */
@@ -58,27 +58,27 @@ export const theme: ThemeUserConfig = {
   footer: {
     links: [
       // Registration link
-      {
-        title: 'Moe ICP APTX4869',
-        link: 'https://icp.gov.moe/?keyword=APTX4869',
-        style: 'text-sm' // Uno/TW CSS class
-      },
-      {
-        title: 'Travelling',
-        link: 'https://www.travellings.cn/go.html',
-        style: 'text-sm'
-      },
+      // {
+      //   title: 'Moe ICP APTX4869',
+      //   link: 'https://icp.gov.moe/?keyword=APTX4869',
+      //   style: 'text-sm' // Uno/TW CSS class
+      // },
+      // {
+      //   title: 'Travelling',
+      //   link: 'https://www.travellings.cn/go.html',
+      //   style: 'text-sm'
+      // },
       // Privacy Policy link
-      {
-        title: 'Site Policy',
-        link: '/terms/list',
-        pos: 2 // position set to 2 will be appended to copyright line
-      }
+      // {
+      //   title: 'Site Policy',
+      //   link: '/terms/list',
+      //   pos: 2 // position set to 2 will be appended to copyright line
+      // }
     ],
     /** Enable displaying a “Astro & Pure theme powered” link in your site’s footer. */
-    credits: true,
+    credits: false,
     /** Optional details about the social media accounts for this site. */
-    social: { github: 'https://github.com/cworld1/astro-theme-pure' }
+    social: { github: 'https://github.com/FabrizioTorrico/proyecto-malvinas#' }
   },
 
   content: {

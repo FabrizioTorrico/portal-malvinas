@@ -8,10 +8,10 @@ const footerConf = config.footer
 let social = footerConf.social || {}
 
 // If the list does not contain rss, add it
-social.rss = {
-  label: 'RSS',
-  url: '/rss.xml'
-}
+// social.rss = {
+//   label: 'RSS',
+//   url: '/rss.xml'
+// }
 
 const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
 ---
@@ -78,6 +78,19 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
 
       {/* Social Brands */}
       <div class='flex items-center gap-x-4'>
+            <a
+              class='inline-block text-muted-foreground transition-all hover:text-muted-foreground/75'
+              href='https://www.info.unlp.edu.ar/'
+              aria-label='Enlace al sitio de la Universidad Nacional de La Plata, Facultad de Informática'
+            >
+              <img class="bg-white"
+                src='src/assets/tools/unlp.svg'
+                alt="Logo, Universidad Nacional de La Plata, Facultad de Informática"
+                width="35"
+                height="230"
+                loading="lazy"
+              />
+            </a>
         {
           footerConf.social &&
             Object.entries(footerConf.social).map(([platform, { label, url }]) => (
@@ -90,6 +103,7 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
               </a>
             ))
         }
+
       </div>
     </div>
   </div>
