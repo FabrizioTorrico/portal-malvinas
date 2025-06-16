@@ -53,7 +53,7 @@ const meta = {
   <div class="flex flex-col h-full gap-4">
 
     <!-- Badge de heroísmo -->
-    <span class="w-fit px-4 py-1.5 bg-[hsl(var(--secondary))] text-[hsl(var(--primary)))] text-xs font-bold rounded-full">
+    <span class="w-fit px-4 py-1.5 bg-[hsl(var(--secondary))] text-[hsl(var(--primary)))] text-sm font-bold rounded-full">
       Heroísmo
     </span>
 
@@ -80,7 +80,7 @@ const meta = {
     <!-- Buttons -->
     <div class="flex justify-center items-center gap-4">
       <!-- arrow -->
-      <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3">
+      <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3" aria-label="Ir al relato anterior">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[hsl(var(--secondary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
@@ -92,7 +92,7 @@ const meta = {
       </button>
 
       <!-- arrow -->
-      <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3">
+      <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3" aria-label="Ir al Siguiente relato">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[hsl(var(--secondary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
