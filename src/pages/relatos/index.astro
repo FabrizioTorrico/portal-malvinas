@@ -14,22 +14,28 @@ const meta = {
 <PageLayout meta={meta} highlightColor="hsl(var(--primary))">
   
   <!-- Title -->
-  <h1 class="pb-8 text-center font-bold text-6xl">{meta.title}</h1>
+  <h1 class='text-center font-balboa text-4xl md:text-6xl p-4 mb-15'>Relatos malvinas</h1>
 
   <!-- Search Form -->
 <form class="flex justify-center mb-16">
-  <div class="relative w-[531px]">
+  <div class="relative w-full max-w-xl">
     <input
       type="text"
       placeholder="Buscar relatos, héroes o acontecimientos..."
-      class="w-full h-[65px] ps-6 pe-14 border-black border-2 rounded-[1000px]"
+      class="w-full h-16 ps-6 pe-14 border-black border-2 rounded-4"
       aria-label="Buscar relatos"
     />
-    <img
-      src="https://cdn-icons-png.flaticon.com/512/622/622669.png"
-      alt="Buscar"
-      class="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 pointer-events-none"
-    />
+    <button
+      type="submit"
+      class="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6"
+      aria-label="Buscar"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/622/622669.png"
+        alt=""
+        class="w-full h-full"
+      />
+    </button>
   </div>
 </form>
 
@@ -37,74 +43,65 @@ const meta = {
   <main class="flex flex-row items-center justify-center gap-20">
 
     <!-- Card 1 -->
-    <div class="hidden lg:block w-100 h-120 border-2 border-black rounded-[24px]">
+    <div class="hidden lg:block w-full max-w-sm aspect-[3/4] rounded-xl bg-white shadow border border-gray-200 p-4 scale-90 opacity-60 transition-all duration-300">
       <h1 class="text-sm text-center font-bold">Carta</h1>
     </div>
 
-    <!-- Card 2 -->
-    <div>
-    <div class="w-105 h-140 border-2 border-black rounded-3xl p-10">
-      
-      <!-- content -->
-        <div class="flex flex-col gap-8">
-          
-          <!-- Badge de heroísmo -->
-          <span class="w-30 h-10 bg-red
-          text-sm font-bold rounded-full
-          flex items-center justify-center overflow-auto">
-            Heroísmo
-          </span>
+<!-- Card 2 Mejorada (Ajuste Distribución Vertical) -->
+<div class="w-full max-w-md aspect-[3/4] rounded-2xl bg-white shadow-md border border-gray-200 p-6">
+  <div class="flex flex-col h-full gap-4">
 
-          <!-- Title -->
-          <h1 class="w-85 h-15 overflow-auto">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </h1>
+    <!-- Badge de heroísmo -->
+    <span class="w-fit px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full">
+      Heroísmo
+    </span>
 
-          <!-- Description -->
-          <p class="w-85 h-50 text-sm text-gray-600 overflow-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+    <!-- Contenedor para título y descripción-->
+    <div class="flex flex-col gap-4 flex-1 min-h-0 overflow-hidden">
 
-          <!-- Additional description -->
-          <div class="flex justify-between items-center overflow-auto">
-            <h1 class="text-xs font-bold">Título Izquierda</h1>
-            <h1 class="text-xs font-bold">Título Derecha</h1>
-          </div>
+      <!-- Title -->
+      <h1 class="text-base font-semibold text-gray-900 overflow-y-auto max-h-[5rem] leading-tight">
+        El último vuelo del teniente García
+      </h1>
 
-          <!--button for more description -->
-    <div class="flex flex-row justify-center gap-2">
-          <!-- Botón de flecha izquierda -->
-          <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-        <!--button for more description -->
-        <button class="w-85 h-12 bg-[hsl(var(--primary))]">
-          <span class="text-[hsl(var(--secondary))] text-sm font-bold">Leer relato</span>
-        </button>
-
-        <!--  Arrow button -->
-        <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-    </div>
-      </div>
+      <!-- Description -->
+      <p class="text-sm text-gray-600 overflow-y-auto max-h-[7rem] leading-snug">
+        La historia del piloto que sacrificó su vida para proteger a sus compañeros durante el ataque al HMS Sheffield. Un acto de valentía que quedó grabado en la memoria
+      </p>
     </div>
 
+    <!-- Additional description -->
+    <div class="flex justify-between items-center text-xs font-bold text-gray-500">
+      <span>15 min</span>
+      <span>Emotivo</span>
     </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-center items-center gap-4">
+      <!-- arrow -->
+      <button class="lg:hidden rounded-full bg-blue-600 p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <!-- more read -->
+      <button class="flex-1 h-12 bg-blue-600 rounded-lg">
+        <span class="text-white text-sm font-bold">Leer relato</span>
+      </button>
+
+      <!-- arrow -->
+      <button class="lg:hidden rounded-full bg-blue-600 p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
 
     <!-- Card 3 -->
-    <div class="hidden lg:block w-100 h-120 border-2 border-black rounded-[24px]">
+    <div class="hidden lg:block w-full max-w-sm aspect-[3/4] rounded-xl bg-white shadow border border-gray-200 p-4 scale-90 opacity-60 transition-all duration-300">
       <h1 class="text-sm text-center font-bold">Carta</h1>
     </div>
 
