@@ -1,6 +1,7 @@
 ---
 
 import PageLayout from '@/layouts/BaseLayout.astro'
+import Icon from 'packages/pure/components/user/Icon.astro'
 
 export const prerender = true
 
@@ -22,7 +23,7 @@ const meta = {
     <input
       type="text"
       placeholder="Buscar relatos, héroes o acontecimientos..."
-      class="w-full h-16 ps-6 pe-14 border-black border-2 rounded-4"
+      class="w-full h-16 ps-6 pe-14 border-bg-[hsl(var(--border))]  border-2 rounded-4"
       aria-label="Buscar relatos"
     />
     <button
@@ -30,11 +31,11 @@ const meta = {
       class="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6"
       aria-label="Buscar"
     >
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/622/622669.png"
-        alt=""
-        class="w-full h-full"
-      />
+          <Icon
+          aria-label='Search Icon'
+          name='search'
+          class='text-muted-foreground  size-5 '
+        />
     </button>
   </div>
 </form>
@@ -43,16 +44,16 @@ const meta = {
   <main class="flex flex-row items-center justify-center gap-20">
 
     <!-- Card 1 -->
-    <div class="hidden lg:block w-full max-w-sm aspect-[3/4] rounded-xl bg-white shadow border border-gray-200 p-4 scale-90 opacity-60 transition-all duration-300">
+    <div class="hidden lg:block w-full max-w-sm aspect-[3/4] rounded-xl bg-[hsl(var(--card))] shadow border border-gray-200 p-4 scale-90 opacity-60 transition-all duration-300">
       <h1 class="text-sm text-center font-bold">Carta</h1>
     </div>
 
-<!-- Card 2 Mejorada (Ajuste Distribución Vertical) -->
-<div class="w-full max-w-md aspect-[3/4] rounded-2xl bg-white shadow-md border border-gray-200 p-6">
+<!-- Card 2 Mejorada -->
+<div class="w-full max-w-md aspect-[3/4] rounded-2xl bg-[hsl(var(--card))] shadow-md border border-gray-200 p-6">
   <div class="flex flex-col h-full gap-4">
 
     <!-- Badge de heroísmo -->
-    <span class="w-fit px-4 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full">
+    <span class="w-fit px-4 py-1.5 bg-[hsl(var(--secondary))] text-[hsl(var(--primary)))] text-xs font-bold rounded-full">
       Heroísmo
     </span>
 
@@ -60,39 +61,39 @@ const meta = {
     <div class="flex flex-col gap-4 flex-1 min-h-0 overflow-hidden">
 
       <!-- Title -->
-      <h1 class="text-base font-semibold text-gray-900 overflow-y-auto max-h-[5rem] leading-tight">
+      <h1 class="text-[hsl(var(--primary-foreground)))] text-base font-semibold overflow-y-auto max-h-[5rem] leading-tight">
         El último vuelo del teniente García
       </h1>
 
       <!-- Description -->
-      <p class="text-sm text-gray-600 overflow-y-auto max-h-[7rem] leading-snug">
+      <p class="text-sm text-[hsl(var(--primary-foreground)))] overflow-y-auto max-h-[7rem] leading-snug">
         La historia del piloto que sacrificó su vida para proteger a sus compañeros durante el ataque al HMS Sheffield. Un acto de valentía que quedó grabado en la memoria
       </p>
     </div>
 
     <!-- Additional description -->
     <div class="flex justify-between items-center text-xs font-bold text-gray-500">
-      <span>15 min</span>
-      <span>Emotivo</span>
+      <span class="text-sm text-[hsl(var(--secondary-foreground)))]">15 min</span>
+      <span class="text-sm text-[hsl(var(--secondary-foreground)))]">Emotivo</span>
     </div>
 
     <!-- Buttons -->
     <div class="flex justify-center items-center gap-4">
       <!-- arrow -->
-      <button class="lg:hidden rounded-full bg-blue-600 p-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[hsl(var(--secondary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
       <!-- more read -->
-      <button class="flex-1 h-12 bg-blue-600 rounded-lg">
-        <span class="text-white text-sm font-bold">Leer relato</span>
+      <button class="flex-1 h-12 bg-[hsl(var(--primary))] rounded-lg">
+        <span class="text-[hsl(var(--secondary))] text-sm font-bold">Leer relato</span>
       </button>
 
       <!-- arrow -->
-      <button class="lg:hidden rounded-full bg-blue-600 p-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button class="lg:hidden rounded-full bg-[hsl(var(--primary))] p-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[hsl(var(--secondary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </button>
@@ -101,7 +102,7 @@ const meta = {
 </div>
 
     <!-- Card 3 -->
-    <div class="hidden lg:block w-full max-w-sm aspect-[3/4] rounded-xl bg-white shadow border border-gray-200 p-4 scale-90 opacity-60 transition-all duration-300">
+    <div class="hidden lg:block w-full max-w-sm aspect-[3/4] rounded-xl bg-[hsl(var(--card))] shadow border border-gray-200 p-4 scale-90 opacity-60 transition-all duration-300">
       <h1 class="text-sm text-center font-bold">Carta</h1>
     </div>
 
