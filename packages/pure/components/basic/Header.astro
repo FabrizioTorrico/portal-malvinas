@@ -7,7 +7,7 @@ const isRoot = Astro.url.pathname === '/'
 ---
 
 <header-component aria-label="Barra de navegación principal" role="navigation"
-  class='[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16'
+  class={(!isRoot ? "not-top " : "") + "[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16"}
 >
   <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
     <a
@@ -25,7 +25,7 @@ const isRoot = Astro.url.pathname === '/'
         class='dark:group-[.expanded.not-top]:bg-muted max-sm:group-[.expanded.not-top]:bg-primary end-0 start-0 top-12 grid border border-transparent group-[.not-top]:rounded-b-xl group-[.expanded]:opacity-100 max-sm:absolute max-sm:opacity-0 max-sm:group-[.not-top]:px-4 max-sm:group-[.not-top]:py-2 sm:grid-rows-1'
       >
         <div
-          class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
+          class={(isRoot ? 'dark:text-accent ': "") + ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
         >
           {
             config.header.menu.map((item) => (
@@ -193,22 +193,24 @@ const isRoot = Astro.url.pathname === '/'
   import { setTheme as applyThemeUtil, showToast } from '../../utils'
 
   const SHOW_SCROLL_Y = 20 // px
-
+  const isRoot = location.pathname == "/"
   class Header extends HTMLElement {
     constructor() {
       super()
+      
     }
 
     connectedCallback() {
       let preScrollY = window.scrollY
       const rootElement = document.documentElement
-
-      this.classList.toggle('not-top', preScrollY > 20)
-      window.addEventListener('scroll', () => {
-        this.classList.toggle('not-top', window.scrollY > SHOW_SCROLL_Y)
-        this.dataset.show = 'true'
-        preScrollY = window.scrollY
-      })
+      if (isRoot) {
+        this.classList.toggle('not-top', preScrollY > 20)
+        window.addEventListener('scroll', () => {
+          this.classList.toggle('not-top', window.scrollY > SHOW_SCROLL_Y)
+          this.dataset.show = 'true'
+          preScrollY = window.scrollY
+        })
+      } 
 
       // Elementos del DOM (con verificación)
       const toggleMenuBtn = this.querySelector('#toggleMenu')
