@@ -103,7 +103,6 @@ const events = [
     <div class='h-86vh z-10 flex w-full justify-center'>
       <h1 class='font-balboa font-balboa text-8xl text-black'>Las Malvinas</h1>
     </div>
-  </main>
 
   <section
     id='quote-section'
@@ -118,8 +117,7 @@ const events = [
     </p>
   </section>
 
-  <div id='timeline' class='my-12'>
-    <section class='flex flex-col gap-y-10'>
+    <section class='flex flex-col gap-y-10' role='region' aria-labelledby='timeline-heading'>
       <div class='font-balboa font-400 text-5xl font-semibold md:min-w-36'>
         <h2>LINEA DE TIEMPO</h2>
       </div>
@@ -129,6 +127,7 @@ const events = [
         </div>
       </div>
     </section>
+  </main>
 
     <style>
       #quote-section::before {
@@ -141,5 +140,4 @@ const events = [
         z-index: -1;
       }
     </style>
-  </div>
 </PageLayout>
