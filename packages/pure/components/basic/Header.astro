@@ -7,11 +7,11 @@ const isRoot = Astro.url.pathname === '/'
 ---
 
 <header-component aria-label="Barra de navegación principal" role="navigation"
-  class='[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16'
+  class={(!isRoot ? "not-top " : "") + "[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16"}
 >
   <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
     <a
-      class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary z-30 text-xl font-semibold'}
+      class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary  z-30 text-xl font-semibold'}
       style='transition:margin-inline 0.3s'
       href='/'
     >
@@ -25,13 +25,13 @@ const isRoot = Astro.url.pathname === '/'
         class='dark:group-[.expanded.not-top]:bg-muted max-sm:group-[.expanded.not-top]:bg-primary end-0 start-0 top-12 grid border border-transparent group-[.not-top]:rounded-b-xl group-[.expanded]:opacity-100 max-sm:absolute max-sm:opacity-0 max-sm:group-[.not-top]:px-4 max-sm:group-[.not-top]:py-2 sm:grid-rows-1'
       >
         <div
-          class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
+          class={(isRoot ? 'dark:text-accent ': "") + ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
         >
           {
             config.header.menu.map((item) => (
               <a
                 href={item.link}
-                class='group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary w-full flex-none grow px-5 py-2 text-right font-medium transition-none sm:w-fit'
+                class='group-[.not-top]:hover:text-secondary dark:hover-text-accent dark:group-[.not-top]:hover:text-primary w-full flex-none grow px-5 py-2 text-right font-medium transition-none sm:w-fit'
               >
                 {item.title}
               </a>
@@ -193,22 +193,24 @@ const isRoot = Astro.url.pathname === '/'
   import { setTheme as applyThemeUtil, showToast } from '../../utils'
 
   const SHOW_SCROLL_Y = 20 // px
-
+  const isRoot = location.pathname == "/"
   class Header extends HTMLElement {
     constructor() {
       super()
+      
     }
 
     connectedCallback() {
       let preScrollY = window.scrollY
       const rootElement = document.documentElement
-
-      this.classList.toggle('not-top', preScrollY > 20)
-      window.addEventListener('scroll', () => {
-        this.classList.toggle('not-top', window.scrollY > SHOW_SCROLL_Y)
-        this.dataset.show = 'true'
-        preScrollY = window.scrollY
-      })
+      if (isRoot) {
+        this.classList.toggle('not-top', preScrollY > 20)
+        window.addEventListener('scroll', () => {
+          this.classList.toggle('not-top', window.scrollY > SHOW_SCROLL_Y)
+          this.dataset.show = 'true'
+          preScrollY = window.scrollY
+        })
+      } 
 
       // Elementos del DOM (con verificación)
       const toggleMenuBtn = this.querySelector('#toggleMenu')
