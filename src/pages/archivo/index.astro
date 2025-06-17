@@ -58,7 +58,7 @@ const links = [
 
     <div class='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
       {
-        links.map((item) => (
+        links.map((item, i) => (
           <div class='border-dark bg-muted group relative flex h-full flex-col overflow-hidden border'>
             <div class='relative aspect-square w-full overflow-hidden'>
               <Image
@@ -76,9 +76,13 @@ const links = [
                 target='_blank'
                 rel='noopener noreferrer'
                 class='text-primary-foreground bg-primary mt-2 text-sm hover:text-secondary block text-center rounded p-4'
+                aria-describedby={`new-window-desc-${i}`}
               >
                 Ver más detalle
               </a>
+              <span id={`new-window-desc-${i}`} class="sr-only">
+                (Se abre en una nueva ventana)
+              </span>
             </div>
           </div>
         ))

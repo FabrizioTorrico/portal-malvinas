@@ -50,10 +50,8 @@ const {
         color: var(--highlightColor, hsl(var(--primary) / var(--un-text-opacity))) !important;
       }
       :global(.highlight-bg) {
-        background-color: var(
-          --highlightColor,
-          hsl(var(--primary) / var(--un-text-opacity))
-        ) !important;
+        background-color: var(--highlightColor) !important;
+        background-color: hsl(var(--primary) / var(--un-text-opacity)) !important;
       }
     </style>
   </body>
