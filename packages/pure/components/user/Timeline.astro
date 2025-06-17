@@ -40,13 +40,11 @@ const { class: className, events } = Astro.props
             <a
               href={event.link.href}
               target={event.link.isExternal ? '_blank' : '_self'}
-              aria-label={`Ver más detalles sobre ${event.title}`}
               class='block'
+              aria-describedby={event.link.isExternal ? `new-window-desc-${event.title}` : undefined}
             >
-              <div
-                class={`flex items-center gap-4 ${isEven ? 'md:justify-start' : 'md:justify-end'}`}
-              >
-                <time datetime={event.datetime} class='text-muted-foreground text-sm font-medium'>
+              <div class={`flex items-center gap-4 ${isEven ? 'md:justify-start' : 'md:justify-end'}`}>
+                <time datetime={event.date} class='text-muted-foreground text-sm font-medium'>
                   {event.date}
                 </time>
                 <div
@@ -64,6 +62,13 @@ const { class: className, events } = Astro.props
               </div>
               <h3 class='text-foreground mt- mb-2 text-xl font-semibold'>{event.title}</h3>
             </a>
+
+            {/* Texto oculto solo para lectores de pantalla si es enlace externo */}
+            {event.link.isExternal && (
+              <span id={`new-window-desc-${event.title}`} class="sr-only">
+                (Se abre en una nueva ventana)
+              </span>
+            )}
           </div>
         )
 

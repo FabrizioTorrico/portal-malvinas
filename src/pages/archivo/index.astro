@@ -59,7 +59,6 @@ const links = [
     <div class='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
       {
         links.map((item) => (
-          // 👇 LA TARJETA CORREGIDA
           <div class='border-dark bg-muted group relative flex h-full flex-col overflow-hidden border'>
             <div class='relative aspect-square w-full overflow-hidden'>
               <Image
@@ -72,17 +71,14 @@ const links = [
 
             <div class='flex flex-grow flex-col p-6 text-center'>
               <p class='text-foreground text-lg font-semibold'>{item.title}</p>
-              <button class='text-primary-foreground bg-primary mt-2 text-sm'>
-                <a
-                  href={item.link.href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label={`Enlace a ${item.title}`}
-                  class='hover:text-secondary'
-                >
-                  <div class='p-4'>Ver mas</div>
-                </a>
-              </button>
+              <a
+                href={item.link.href}
+                target='_blank'
+                rel='noopener noreferrer'
+                class='text-primary-foreground bg-primary mt-2 text-sm hover:text-secondary block text-center rounded p-4'
+              >
+                Ver más detalle
+              </a>
             </div>
           </div>
         ))
