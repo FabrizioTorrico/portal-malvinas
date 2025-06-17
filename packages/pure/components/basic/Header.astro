@@ -11,7 +11,7 @@ const isRoot = Astro.url.pathname === '/'
 >
   <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
     <a
-      class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary z-30 text-xl font-semibold'}
+      class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary  z-30 text-xl font-semibold'}
       style='transition:margin-inline 0.3s'
       href='/'
     >
@@ -31,7 +31,7 @@ const isRoot = Astro.url.pathname === '/'
             config.header.menu.map((item) => (
               <a
                 href={item.link}
-                class='group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary w-full flex-none grow px-5 py-2 text-right font-medium transition-none sm:w-fit'
+                class='group-[.not-top]:hover:text-secondary dark:hover-text-accent dark:group-[.not-top]:hover:text-primary w-full flex-none grow px-5 py-2 text-right font-medium transition-none sm:w-fit'
               >
                 {item.title}
               </a>

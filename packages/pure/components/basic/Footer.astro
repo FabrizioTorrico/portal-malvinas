@@ -2,10 +2,10 @@
 import config from 'virtual:config'
 
 import { Icon } from '../user'
-
+import Image from 'astro/components/Image.astro'
+import crespo from '@/assets/tools/unlp.svg'
 const year = new Date().getFullYear()
 const footerConf = config.footer
-let social = footerConf.social || {}
 
 // If the list does not contain rss, add it
 // social.rss = {
@@ -83,13 +83,15 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
               href='https://www.info.unlp.edu.ar/'
               aria-label='Enlace al sitio de la Universidad Nacional de La Plata, Facultad de Informática'
             >
-              <img class="bg-white"
-                src='src/assets/tools/unlp.svg'
-                alt="Logo, Universidad Nacional de La Plata, Facultad de Informática"
+            <Image
+                src={crespo}
+                alt={`Fotografía de `}
+                loading='lazy'
                 width="35"
                 height="230"
-                loading="lazy"
+                class="bg-white rounded-full"
               />
+            
             </a>
         {
           footerConf.social &&
