@@ -60,13 +60,13 @@ const isRoot = Astro.url.pathname === '/'
           role='region'
           aria-labelledby='settingsPanelTitle'
         >
-          <h3
+          <p
             id='settingsPanelTitle'
             class='mb-3 text-lg font-semibold text-neutral-800 dark:text-neutral-100'
             aria-label='Panel de configuración'
           >
             Configuración
-          </h3>
+          </p>
 
           <div class='mb-4'>
             <p class='mb-2 text-sm font-medium text-neutral-700 dark:text-neutral-300'>Tema</p>
@@ -116,9 +116,9 @@ const isRoot = Astro.url.pathname === '/'
           </div>
 
           <div>
-            <p class='mb-2 text-sm font-medium text-neutral-700 dark:text-neutral-300'>
-              Fuente Principal
-            </p>
+            <label for="fontFamilySelector" class='mb-4 text-sm font-medium text-neutral-700 dark:text-neutral-300'>
+              Tipo de fuente
+            </label>
             <select
               id='fontFamilySelector'
               class='focus:ring-primary w-full rounded-md border border-neutral-300 bg-white p-2 text-neutral-900 focus:ring-2 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100'
@@ -128,6 +128,9 @@ const isRoot = Astro.url.pathname === '/'
               <option value='system-ui, sans-serif'>Facil lectura</option>
               <option value="'Courier New', monospace">Courier New (Monospace)</option>
             </select>
+            <span id="fontHint" class="sr-only">
+              Selecciona el estilo de letra preferido para la visualización.
+            </span>
           </div>
         </div>
 
