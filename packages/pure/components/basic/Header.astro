@@ -6,7 +6,7 @@ import { Icon } from '../user'
 const isRoot = Astro.url.pathname === '/'
 ---
 
-<header-component
+<nav aria-label="Barra de navegación principal"
   class='[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16'
 >
   <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
@@ -147,7 +147,7 @@ const isRoot = Astro.url.pathname === '/'
       </div>
     </div>
   </div>
-</header-component>
+</nav>
 
 <script is:inline>
   // Aplica el tema y las preferencias de fuente guardadas lo antes posible
