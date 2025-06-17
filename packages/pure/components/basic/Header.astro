@@ -47,12 +47,11 @@ const isRoot = Astro.url.pathname === '/'
         {/* Settings Panel Toggle Button */}
         <button
           id='toggleSettingsPanel'
-          aria-label='Abrir panel de configuración'
+          aria-label='Abrir panel de configuración de accesibilidad'
           aria-expanded='false'
           aria-controls='settingsPanel'
           class='group/accesibility bg-primary group-[.not-top]:bg-secondary box-content flex items-center justify-center rounded-xl p-1.5 transition-colors hover:opacity-80'
         >
-          <span class='sr-only'>Abrir Configuración</span>
           <Icon class='color-secondary group-[.not-top]:color-primary size-6' name='person' />
         </button>
 
@@ -125,6 +124,7 @@ const isRoot = Astro.url.pathname === '/'
             <select
               id='fontFamilySelector'
               class='focus:ring-primary w-full rounded-md border border-neutral-300 bg-white p-2 text-neutral-900 focus:ring-2 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100'
+              aria-label="Menú de selección de fuente principal"
             >
               <option value='Montserrat'>Original</option>
               <option value='system-ui, sans-serif'>Facil lectura</option>
