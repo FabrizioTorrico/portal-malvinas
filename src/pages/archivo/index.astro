@@ -50,7 +50,10 @@ const links = [
           aria-label='Búsqueda por título'
           class='placeholder:text-muted-foreground border-dark p-y-2 p-x-4 w-full rounded-md border-2 pr-10'
         />
-        <button class='bg-muted absolute end-3 top-1/2 flex -translate-y-1/2' aria-label='Buscar por título'>
+        <button
+          class='bg-muted absolute end-3 top-1/2 flex -translate-y-1/2'
+          aria-label='Buscar por título'
+        >
           <Icon aria-label='Search Icon' name='search' class='text-muted-foreground size-5' />
         </button>
       </div>
@@ -75,12 +78,12 @@ const links = [
                 href={item.link.href}
                 target='_blank'
                 rel='noopener noreferrer'
-                class='text-primary-foreground bg-primary mt-2 text-sm hover:text-secondary block text-center rounded p-4 focus:ring-6 focus:ring-[hsl(var(--card-foreground))]'
+                class='text-primary-foreground bg-primary hover:text-secondary focus:ring-6 mt-2 block rounded p-4 text-center text-sm focus:ring-[hsl(var(--card-foreground))]'
                 aria-describedby={`new-window-desc-${i}`}
               >
                 Ver más detalle
               </a>
-              <span id={`new-window-desc-${i}`} class="sr-only">
+              <span id={`new-window-desc-${i}`} class='sr-only'>
                 (Se abre en una nueva ventana)
               </span>
             </div>

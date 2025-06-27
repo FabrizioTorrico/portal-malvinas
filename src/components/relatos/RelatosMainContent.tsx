@@ -93,8 +93,8 @@ export default function RelatosMainContent() {
       story.description.toLowerCase().includes(searchQuery.toLowerCase())
   )
   return (
-    <main className='h-84vh flex flex-col gap-8'>
-      <h1 className='font-balboa text-center text-6xl text-white md:text-7xl'>Relatos malvinas</h1>
+    <main className='h-84vh flex flex-col gap-6'>
+      <h1 className='font-balboa text-center text-5xl text-white md:text-6xl'>Relatos malvinas</h1>
       <form className='flex justify-center'>
         <div className='relative mx-12 w-full max-w-xl'>
           <input
@@ -109,6 +109,20 @@ export default function RelatosMainContent() {
             className='absolute right-4 top-1/2 h-6 w-6 -translate-y-1/2'
             aria-label='Buscar'
           >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='text-muted-foreground size-5'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <g fill='none' fill-rule='evenodd'>
+                <path
+                  fill='currentColor'
+                  d='M5 10a5 5 0 1 1 10 0a5 5 0 0 1-10 0m5-7a7 7 0 1 0 4.192 12.606l5.1 5.101a1 1 0 0 0 1.415-1.414l-5.1-5.1A7 7 0 0 0 10 3'
+                />
+              </g>
+            </svg>
             {/* <Icon aria-label='Search Icon' name='search' className='text-muted-foreground size-5' /> */}
           </button>
         </div>

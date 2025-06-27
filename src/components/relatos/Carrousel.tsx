@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import type { Story } from './RelatosContent'
+import type { Story } from './RelatosMainContent'
 
 export default function Carrousel({ stories }: { stories: Story[] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -19,7 +19,7 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
 
   const getCardClasses = (index: number) => {
     const baseClasses =
-      'absolute w-80 h-96 bg-card  border-primary border-3 rounded-xl p-6 cursor-pointer shadow-2xl transition-all duration-700 ease-out'
+      'absolute w-80 h-fit bg-card  border-primary border-3 rounded-xl p-6 cursor-pointer shadow-2xl transition-all duration-700 ease-out'
 
     if (index === currentIndex) {
       return `${baseClasses} left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-105 z-10 shadow-[0_30px_60px_rgba(207,219,237,0.2)]`
@@ -62,7 +62,23 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
                 </p>
 
                 <div className='text-foreground mb-6 flex items-center justify-between text-sm font-bold'>
-                  <span>⏱️ {story.duration}</span>
+                  <span className='flex items-center gap-2'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='text-foreground size-5'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke='currentColor'
+                    >
+                      <g fill='none'>
+                        <path
+                          fill='currentColor'
+                          d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2m0 2a8 8 0 1 0 0 16a8 8 0 0 0 0-16m0 2a1 1 0 0 1 .993.883L13 7v4.586l2.707 2.707a1 1 0 0 1-1.32 1.497l-.094-.083l-3-3a1 1 0 0 1-.284-.576L11 12V7a1 1 0 0 1 1-1'
+                        />
+                      </g>
+                    </svg>{' '}
+                    {story.duration}
+                  </span>
                 </div>
 
                 <button
@@ -119,7 +135,7 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
             {/* <ChevronRight className='h-6 w-6' /> */}
           </button>
 
-          <div className='absolute bottom-0 left-1/2 flex -translate-x-1/2 translate-y-12 transform gap-2'>
+          <div className='absolute bottom-0 left-1/2 flex -translate-x-1/2 transform gap-2'>
             {stories.map((_, index) => (
               <button
                 key={index}
