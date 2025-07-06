@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets'
+
+import { Icon } from 'astro-pure/user'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import crespo from '@/assets/crespo.jpg'
+import aboutGroup from '@/assets/sobre-nosotros/about-foto-grupo.png'
+import unlpLogo from '@/assets/sobre-nosotros/unlp-logo.png'
+
+const combatientes = [
+  { name: 'Ernesto H. Crespo.', description: 'Brigadier general', image: crespo },
+  { name: 'Ernesto H. Crespo.', description: 'Brigadier general', image: crespo },
+  { name: 'Ernesto H. Crespo.', description: 'Brigadier general', image: crespo },
+  { name: 'Ernesto H. Crespo.', description: 'Brigadier general', image: crespo }
+]
+
+const titleH1 = 'font-bold font-balboa mb-4 text-center text-4xl md:text-5xl';
+const titleH2 = 'font-bold mb-2 text-xl md:text-3xl';
+
+---
+
+<BaseLayout meta={{ title: 'Sobre nosotros' }}>
+  <main class="flex flex-col gap-5">
+    <!-- Sobre nosotros -->
+    <section>
+      <h1 class={titleH1}>Sobre nosotros</h1>
+      <p class="mx-auto">
+        Somos un equipo impulsado por la convicción de que la memoria es un pilar fundamental para los pueblos.
+        Este proyecto se inscribe en el seno de la Universidad Nacional de La Plata (UNLP), enmarcado en la visión de docentes comprometidos con la difusión
+        y el estudio de la Gesta de Malvinas.
+      </p>
+    </section>
+
+    <!-- Quienes somos -->
+    <section class="flex flex-col md:flex-row gap-6 items-start">
+      <Image
+        src={aboutGroup}
+        alt="Descripción de la imagen"
+        widths={[386, 425]} 
+        sizes="(max-width: 768px) 386px, 425px"
+        class="object-cover rounded-xl shadow-md text-center mx-auto"
+        format="webp"
+      />
+      <div class="md:w-1/2 space-y-4">
+        <h2 class={titleH2}>Quienes somos</h2>
+        <p class="text-start">
+          El desarrollo y la responsabilidad de este contenido están a cargo del equipo de investigación y producción audiovisual de la Facultad de Artes de la UNLP.
+          Nuestro objetivo es acercar a la sociedad, desde un enfoque académico, el conocimiento y análisis de los documentos históricos de la Guerra de Malvinas. 
+          Trabajamos desde una mirada crítica que aporte a la comprensión del conflicto bélico y a su complejidad en la historia nacional.
+        </p>
+      </div>
+    </section>
+
+    <div class="flex flex-col gap-6">
+      <!-- Contacto -->
+      <section class="order-last md:order-first">
+        <h2 class={titleH2}>Contacto</h2>
+        <div class="space-y-1">
+          <p class="flex items-center gap-2"><span>📞</span> 221-0000000</p>
+          <p class="flex items-center gap-2"><span>✉️</span> <a href="mailto:areainstitucional@fba.unlp.edu.ar" class="text-blue-600 underline">areainstitucional@fba.unlp.edu.ar</a></p>
+        </div>
+      </section>
+
+      <!-- Sobre el proyecto -->
+      <section class="flex flex-col gap-6">
+        <div>
+          <h1 class={titleH1}>Sobre el proyecto</h2>
+          <div class="flex items-center gap-4">
+            <Image
+              src={unlpLogo}
+              width={100}
+              alt="Logo de la Universidad Nacional de La Plata"
+              class="object-cover"
+            />
+            <p class="text-start mb-4">
+              Este portal es el resultado de un esfuerzo colaborativo entre la Universidad Nacional de La Plata y la Fuerza Aérea Argentina.
+              Nace del profundo respeto por quienes combatieron en Malvinas y de la necesidad de mantener viva su memoria para las futuras generaciones.
+            </p>
+          </div>
+        </div> 
+
+        <div class="space-y-6">
+          <!-- Identidad Nacional y Respeto -->
+          <div>
+            <h2 class={titleH2}>Identidad Nacional y Respeto:</h2>
+            <p class="text-start">
+              Cada sección de este portal está pensada desde una mirada plural, en defensa de la verdad, la soberanía y la identidad.
+              La información ha sido revisada por especialistas, historiadores y periodistas para ofrecer un tratamiento riguroso de los contenidos.
+            </p>
+          </div>
+
+          <!-- Agradecimientos -->
+          <div>
+            <h2 class={titleH2}>Agradecimientos y créditos</h3>
+            <p class="text-start">
+              Agradecemos profundamente a la Universidad Nacional de La Plata, en particular a la Facultad de Artes y demás actores involucrados, 
+              por su apoyo y compromiso con la memoria de Malvinas.
+            </p>
+            <p class="text-start">
+              Las recopilaciones son posibles a los documentos de Malvinas ya existentes, 
+              quienes con generosidad dedicaron sus testimonios y conocimientos para que podamos llegar a nuevas generaciones.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
