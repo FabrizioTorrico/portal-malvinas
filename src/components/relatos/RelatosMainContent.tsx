@@ -94,7 +94,8 @@ export default function RelatosMainContent() {
   )
   return (
     <main className='h-84vh flex flex-col gap-6'>
-      <h1 className='font-balboa text-center text-5xl text-white md:text-6xl'>Relatos malvinas</h1>
+      <h1 className='font-balboa text-center text-5xl text-white md:text-6xl'>Relatos Malvinas</h1>
+      <p className="m-auto text-white -mt-2">En este apartado se encuentran las historias de las personas involucradas en la historia de las Islas Malvinas</p>
       <form className='flex justify-center'>
         <div className='relative mx-12 w-full max-w-xl'>
           <input
