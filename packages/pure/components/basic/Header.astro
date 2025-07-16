@@ -6,12 +6,16 @@ import { Icon } from '../user'
 const isRoot = Astro.url.pathname === '/'
 ---
 
-<header-component aria-label="Barra de navegación principal" role="navigation"
-  class={(!isRoot ? "not-top " : "") + "[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16"}
+<header-component
+  aria-label='Barra de navegación principal'
+  role='navigation'
+  class={(!isRoot ? 'not-top ' : '') +
+    '[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16'}
 >
   <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
     <a
-      class={(isRoot ? 'dark:text-accent': "") + ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary  z-30 text-xl font-semibold'}
+      class={(isRoot ? 'dark:text-accent' : '') +
+        ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary  z-30 text-xl font-semibold'}
       style='transition:margin-inline 0.3s'
       href='/'
     >
@@ -25,7 +29,8 @@ const isRoot = Astro.url.pathname === '/'
         class='dark:group-[.expanded.not-top]:bg-muted max-sm:group-[.expanded.not-top]:bg-primary end-0 start-0 top-12 grid border border-transparent group-[.not-top]:rounded-b-xl group-[.expanded]:opacity-100 max-sm:absolute max-sm:opacity-0 max-sm:group-[.not-top]:px-4 max-sm:group-[.not-top]:py-2 sm:grid-rows-1'
       >
         <div
-          class={(isRoot ? 'dark:text-accent ': "") + ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
+          class={(isRoot ? 'dark:text-accent ' : '') +
+            ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
         >
           {
             config.header.menu.map((item) => (
@@ -116,19 +121,22 @@ const isRoot = Astro.url.pathname === '/'
           </div>
 
           <div>
-            <label for="fontFamilySelector" class='mb-4 text-sm font-medium text-neutral-700 dark:text-neutral-300'>
+            <label
+              for='fontFamilySelector'
+              class='mb-4 text-sm font-medium text-neutral-700 dark:text-neutral-300'
+            >
               Tipo de fuente
             </label>
             <select
               id='fontFamilySelector'
               class='focus:ring-primary w-full rounded-md border border-neutral-300 bg-white p-2 text-neutral-900 focus:ring-2 dark:border-neutral-600 dark:bg-neutral-700 dark:text-neutral-100'
-              aria-label="Menú de selección de fuente principal"
+              aria-label='Menú de selección de fuente principal'
             >
               <option value='Montserrat'>Original</option>
               <option value='system-ui, sans-serif'>Facil lectura</option>
               <option value="'Courier New', monospace">Courier New (Monospace)</option>
             </select>
-            <span id="fontHint" class="sr-only">
+            <span id='fontHint' class='sr-only'>
               Selecciona el estilo de letra preferido para la visualización.
             </span>
           </div>
@@ -137,7 +145,7 @@ const isRoot = Astro.url.pathname === '/'
         {/* Mobile Menu Toggle Button */}
         <button
           id='toggleMenu'
-          class='group-[.not-top]:bg-secondary bg-primary color-secondary group-[.not-top]:color-primary rounded-xl p-1.5 transition-colors sm:hidden'
+          class='group-[.not-top]:bg-secondary bg-primary color-secondary group-[.not-top]:color-primary rounded-xl p-1.5 transition-colors md:hidden'
           aria-label='Abrir menú de navegación'
           aria-expanded='false'
           aria-controls='headerExpandContent'
@@ -193,11 +201,10 @@ const isRoot = Astro.url.pathname === '/'
   import { setTheme as applyThemeUtil, showToast } from '../../utils'
 
   const SHOW_SCROLL_Y = 20 // px
-  const isRoot = location.pathname == "/"
+  const isRoot = location.pathname == '/'
   class Header extends HTMLElement {
     constructor() {
       super()
-      
     }
 
     connectedCallback() {
@@ -210,7 +217,7 @@ const isRoot = Astro.url.pathname === '/'
           this.dataset.show = 'true'
           preScrollY = window.scrollY
         })
-      } 
+      }
 
       // Elementos del DOM (con verificación)
       const toggleMenuBtn = this.querySelector('#toggleMenu')
@@ -336,7 +343,7 @@ const isRoot = Astro.url.pathname === '/'
   }
 
   /* header menu (mobile) */
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     #headerExpandContent {
       grid-template-rows: 0fr;
       transition:
