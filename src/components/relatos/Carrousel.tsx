@@ -33,8 +33,8 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
   }
 
   return (
-    <div aria-label='La vida la vida es un carrouseell'>
-      <section className='flex flex-1 items-center justify-center px-8'>
+    <section className='flex flex-1 items-center justify-center'>
+      <div className='flex max-w-5xl flex-1 px-8'>
         <div className='relative h-[500px] w-full max-w-6xl'>
           <div className='relative h-full w-full'>
             {stories.map((story, index) => (
@@ -50,19 +50,19 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
                   </div>
                 )}
 
-                <label className='bg-secondary text-primary mb-4 inline-block rounded-full px-4 py-1.5 text-sm font-bold tracking-wider'>
+                <label className='bg-secondary text-primary mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-bold tracking-wider'>
                   {story.categoryLabel}
                 </label>
 
-                <p className='text-foreground mb-4 text-2xl font-bold leading-tight drop-shadow-md'>
+                <p className='text-foreground mb-3 text-2xl font-bold leading-tight drop-shadow-md'>
                   {story.title}
                 </p>
 
-                <p className='text-foreground mb-6 h-24 overflow-hidden text-sm leading-relaxed'>
+                <p className='text-foreground mb-4 h-24 overflow-hidden text-sm leading-relaxed'>
                   {story.description}
                 </p>
 
-                <div className='text-foreground mb-6 flex items-center justify-between text-sm font-bold'>
+                <div className='text-foreground mb-4 flex items-center justify-between text-sm font-bold'>
                   <span className='flex items-center gap-2'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -82,16 +82,18 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
                   </span>
                 </div>
 
-                <button
-                  aria-hidden={index !== currentIndex}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    // readStory(story.id)
-                  }}
-                  className='bg-primary text-secondary text-md w-full transform rounded-lg border-2 py-3 font-bold tracking-wide transition-all duration-300 hover:-translate-y-1 hover:border-[#CFDBED]'
-                >
-                  Leer Relato
-                </button>
+                <a href={`relatos/${story.id}`}>
+                  <div
+                    aria-hidden={index !== currentIndex}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      // readStory(story.id)
+                    }}
+                    className='bg-primary text-secondary text-md flex w-full transform items-center justify-center rounded-lg border-2 py-3 font-bold tracking-wide transition-all duration-300 hover:-translate-y-1 hover:border-[#CFDBED]'
+                  >
+                    Leer Relato
+                  </div>
+                </a>
               </div>
             ))}
           </div>
@@ -141,7 +143,7 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
           <div className='absolute bottom-0 left-1/2 flex -translate-x-1/2 transform gap-2'>
             {stories.map((_, index) => (
               <button
-                aria-label={`Ir al relato ${index + 1}`}
+                aria-hidden='true'
                 key={index}
                 onClick={() => goToStory(index)}
                 className={`h-3 w-3 rounded-full transition-all duration-300 ${
@@ -153,7 +155,7 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
             ))}
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   )
 }
