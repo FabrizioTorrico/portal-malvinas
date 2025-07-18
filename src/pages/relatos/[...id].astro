@@ -22,9 +22,10 @@ export async function getStaticPaths() {
 }
 
 const { story } = Astro.props
+const props = Astro.props
 
 console.log("story ----------------------------------------", story)
-
+console.log("props ----------------------------------------", props)
 const headings = (
   marked.lexer(story.content).filter((token) => token.type === 'heading') as Tokens.Heading[]
 ).map((token) => ({
