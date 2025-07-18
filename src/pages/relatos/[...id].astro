@@ -4,28 +4,25 @@ import { marked, type Tokens } from 'marked'
 import { TOC } from 'astro-pure/components/pages'
 import ContentLayout from '@/layouts/ContentLayout.astro'
 
-export async function getStaticPaths() {
+export const prerender = false; // Not needed in 'server' mode
+
   const stories = [
     {
       id: '1',
       name: 'Juan pedro',
       surname: 'Maestro Splinter',
       phone: '22131231212',
-      dni: {},
+      dni: "2212312312",
       content: '# Titulo de tu relato\n\n3D rendering is all around us. From huge action movies to car commercials to previews of upcoming buildings or product designs, 3D visualization has become so widespread and realistic that you probably don’t even know it’s there.\n\nIn this introductory piece, Chaos’ Ricardo Ortiz explains the basics of 3D rendering, from the computational methods that create imagery to the artistic techniques that create great computer-generated (CG) content and its various uses.\n\n## What is 3d rendering?\n\nPut simply, 3D rendering is the process of using a computer to generate a 2D image from a digital three-dimensional scene.\n\nTo generate an image, specific methodologies and special software and hardware are used. Therefore, we need to understand that 3D rendering is a process—the one that builds the image.\n\n### More information\n\n3D rendering is an essential technique for many industries including architecture, product design, advertising, video games and visual effects for film, TV and animation.\n\nIn design and architecture, renders allow creative people to communicate their ideas in a clear and transparent way. A render gives them the chance to evaluate their proposals, experiment with materials, conduct studies and contextualize their designs in the real world before they are built or manufactured.\n\nFor the media and entertainment industries, 3D rendering is fundamental to the creation of sequences and animations that tell stories, whether we’re watching an animated movie, a period drama, or an action sequence with explosions, ships from the future, exotic locales, or extraterrestrial creatures.\n\n1. asd\n\n2. asd\n\n3. asd\n\n4. asd\n'
     }
   ]
-  return stories.map((story) => ({
-    params: { id: story.id },
-    props: { story }
-  }))
-}
 
-const { story } = Astro.props
-const props = Astro.props
+const { id } = Astro.params
+const story = stories.find((story) => story.id === id);
+
+if (!story) return Astro.redirect("/404");
 
 console.log("story ----------------------------------------", story)
-console.log("props ----------------------------------------", props)
 const headings = (
   marked.lexer(story.content).filter((token) => token.type === 'heading') as Tokens.Heading[]
 ).map((token) => ({
