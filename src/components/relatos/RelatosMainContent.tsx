@@ -94,37 +94,46 @@ export default function RelatosMainContent() {
   )
   return (
     <main className='h-84vh flex flex-col gap-6'>
-      <h1 className='font-balboa text-center text-5xl text-white md:text-6xl'>Relatos malvinas</h1>
+      <h1 className='font-balboa text-center text-5xl text-white md:text-6xl'>
+        Relatos de Malvinas
+      </h1>
+
       <form className='flex justify-center'>
-        <div className='relative mx-12 w-full max-w-xl'>
-          <input
-            type='text'
-            placeholder='Buscar relatos, héroes o acontecimientos...'
-            className='rounded-4 h-16 w-full border-2 border-[hsl(var(--primary))] pe-14 ps-6'
-            aria-label='Buscar relatos'
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button
-            type='submit'
-            className='absolute right-4 top-1/2 h-6 w-6 -translate-y-1/2'
-            aria-label='Buscar'
-          >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='text-muted-foreground size-5'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
+        <div className='w-2xl flex items-center gap-4'>
+          <div className='relative h-14 w-full'>
+            <input
+              type='text'
+              placeholder='Buscar relatos, héroes o acontecimientos...'
+              className='rounded-4 placeholder:text-muted-foreground h-full w-full border-2 border-[hsl(var(--primary))] pe-14 ps-6'
+              aria-label='Buscar relatos'
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+
+            <button
+              type='submit'
+              className='absolute right-4 top-1/2 h-6 w-6 -translate-y-1/2'
+              aria-label='Buscar'
             >
-              <g fill='none' fill-rule='evenodd'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='text-muted-foreground size-5'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+                aria-hidden='true'
+              >
                 <path
                   fill='currentColor'
                   d='M5 10a5 5 0 1 1 10 0a5 5 0 0 1-10 0m5-7a7 7 0 1 0 4.192 12.606l5.1 5.101a1 1 0 0 0 1.415-1.414l-5.1-5.1A7 7 0 0 0 10 3'
                 />
-              </g>
-            </svg>
-            {/* <Icon aria-label='Search Icon' name='search' className='text-muted-foreground size-5' /> */}
-          </button>
+              </svg>
+            </button>
+          </div>
+          <a href='/formulario-relato' className='h-full'>
+            <div className='bg-secondary text-primary flex h-full w-max items-center justify-center rounded-xl p-1.5 px-3.5 font-medium'>
+              Enviar Relato
+            </div>
+          </a>
         </div>
       </form>
 

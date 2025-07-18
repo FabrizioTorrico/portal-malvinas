@@ -1,0 +1,234 @@
+---
+import config from 'virtual:config'
+import { Icon } from '../../user'
+import MobileMenu from './MobileMenu.astro'
+import SettingsPanel from './SettingsPanel.astro'
+import type { HeaderConfig } from './types'
+
+const typedConfig = config as HeaderConfig
+const isRoot = Astro.url.pathname === '/'
+---
+
+<header-component
+  aria-label='Barra de navegación principal'
+  role='navigation'
+  class={(!isRoot ? 'not-top ' : '') +
+    '[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16'}
+>
+  <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
+    <!-- Logo/Title -->
+    <a
+      class={(isRoot ? 'dark:text-accent' : '') +
+        ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary z-30 text-xl font-semibold'}
+      style='transition:margin-inline 0.3s'
+      href='/'
+    >
+      {typedConfig.title}
+    </a>
+
+    <div class='flex items-center gap-x-2'>
+      <!-- Mobile Menu -->
+      <MobileMenu menuItems={typedConfig.header.menu} isRoot={isRoot} />
+
+      <!-- Action Buttons -->
+      <div class='relative z-30 flex gap-x-4 group-[.not-top]:gap-x-2' style='transition:gap 0.3s'>
+        <!-- Settings Panel Toggle Button -->
+        <button
+          id='toggleSettingsPanel'
+          aria-label='Abrir panel de configuración de accesibilidad'
+          aria-expanded='false'
+          aria-controls='settingsPanel'
+          class='group/accesibility bg-primary group-[.not-top]:bg-secondary box-content flex items-center justify-center rounded-xl p-1.5 transition-colors hover:opacity-80'
+        >
+          <Icon class='color-secondary group-[.not-top]:color-primary size-6' name='person' />
+        </button>
+
+        <!-- Settings Panel -->
+        <SettingsPanel />
+
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          id='toggleMenu'
+          class='group-[.not-top]:bg-secondary bg-primary color-secondary group-[.not-top]:color-primary rounded-xl p-1.5 transition-colors md:hidden'
+          aria-label='Abrir menú de navegación'
+          aria-expanded='false'
+          aria-controls='headerExpandContent'
+        >
+          <span class='sr-only'>Menu</span>
+          <Icon class='size-5' name='menu' />
+        </button>
+      </div>
+    </div>
+  </div>
+</header-component>
+
+<script is:inline>
+  // Apply saved theme and font preferences as early as possible
+  // to prevent FOUC (Flash Of Unstyled Content).
+  
+  // 1. Apply Theme
+  const storedTheme = localStorage.getItem('theme') || 'system'
+  document.documentElement.dataset.theme = storedTheme
+
+  let effectiveTheme = storedTheme
+  if (storedTheme === 'system') {
+    effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+  if (effectiveTheme === 'dark') {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+  if (metaThemeColor) {
+    metaThemeColor.setAttribute('content', effectiveTheme === 'dark' ? '#0B0B10' : '#FCFCFD')
+  }
+
+  // 2. Apply Font Size
+  const storedFontSize = localStorage.getItem('fontSize')
+  if (storedFontSize) {
+    document.documentElement.dataset.fontSize = storedFontSize
+  }
+
+  // 3. Apply Font Family
+  const storedFontFamily = localStorage.getItem('fontFamily')
+  const defaultFontFamily = 'system-ui, sans-serif'
+  document.documentElement.style.setProperty(
+    '--font-family-main',
+    storedFontFamily || defaultFontFamily
+  )
+</script>
+
+<script>
+  import { HeaderController } from './controller'
+
+  const isRoot = location.pathname === '/'
+
+  class Header extends HTMLElement {
+    private controller: HeaderController | null = null
+
+    constructor() {
+      super()
+    }
+
+    connectedCallback() {
+      this.controller = new HeaderController(this, isRoot)
+    }
+
+    disconnectedCallback() {
+      // Cleanup if needed
+      this.controller = null
+    }
+  }
+
+  customElements.define('header-component', Header)
+</script>
+
+<style>
+  /* Header Component Styles */
+  header-component {
+    transition:
+      padding 0.3s,
+      transform 0.3s,
+      margin-inline 0.3s,
+      border 0.15s,
+      background-color 0.3s;
+  }
+
+  header-component.not-top {
+    box-shadow:
+      rgb(255, 255, 255) 0px 0px 0px 0px,
+      rgba(24, 24, 27, 0.08) 0px 0px 0px 1px,
+      rgba(39, 39, 42, 0.08) 0px 10px 15px -3px,
+      rgba(39, 39, 42, 0.08) 0px 4px 6px -4px;
+  }
+
+  header-component[data-show='false']:not(.expanded):not(.settings-panel-expanded) {
+    transform: translateY(-5rem);
+  }
+
+  /* Mobile Menu Styles */
+  @media (max-width: 768px) {
+    #headerExpandContent {
+      grid-template-rows: 0fr;
+      transition:
+        opacity 0.3s,
+        padding 0.3s,
+        border-color 0.15s,
+        grid-template-rows 0.3s;
+    }
+    
+    .expanded #headerExpandContent {
+      grid-template-rows: 1fr;
+    }
+    
+    .expanded.not-top #headerExpandContent {
+      box-shadow:
+        rgb(255, 255, 255) 0px 0px 0px 0px,
+        rgba(24, 24, 27, 0.08) 0px 0px 0px 1px,
+        rgba(39, 39, 42, 0.08) 0px 10px 15px -3px,
+        rgba(39, 39, 42, 0.08) 0px 4px 6px -4px;
+    }
+  }
+
+  /* Font System Styles */
+  :root {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      'Open Sans',
+      'Helvetica Neue',
+      sans-serif;
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-base: 1rem; /* 16px */
+    --font-size-lg: 1.125rem; /* 18px */
+
+    font-size: var(--font-size-base);
+    font-family: var(--font-family-main);
+  }
+
+  html[data-font-size='sm'] {
+    font-size: var(--font-size-sm);
+  }
+
+  html[data-font-size='lg'] {
+    font-size: var(--font-size-lg);
+  }
+
+  html:not([data-font-size='sm']):not([data-font-size='lg']) {
+    font-size: var(--font-size-base);
+  }
+
+  /* Settings Panel Styles */
+  #settingsPanel .theme-btn,
+  #settingsPanel .fontsize-btn {
+    transition:
+      background-color 0.2s,
+      border-color 0.2s;
+  }
+
+  #settingsPanel .theme-btn:focus,
+  #settingsPanel .fontsize-btn:focus,
+  #settingsPanel #fontFamilySelector:focus {
+    outline: 2px solid hsl(var(--primary) / 0.7);
+    outline-offset: 2px;
+  }
+
+  /* Active State Indicators */
+  html[data-theme='light'] #settingsPanel .theme-btn[data-set-theme='light'],
+  html[data-theme='dark'] #settingsPanel .theme-btn[data-set-theme='dark'],
+  html[data-theme='system'] #settingsPanel .theme-btn[data-set-theme='system'],
+  html[data-font-size='sm'] #settingsPanel .fontsize-btn[data-set-fontsize='sm'],
+  html[data-font-size='base'] #settingsPanel .fontsize-btn[data-set-fontsize='base'],
+  html[data-font-size='lg'] #settingsPanel .fontsize-btn[data-set-fontsize='lg'] {
+    background-color: hsl(var(--primary) / 0.15);
+    border-color: hsl(var(--primary) / 0.5);
+  }
+</style>
