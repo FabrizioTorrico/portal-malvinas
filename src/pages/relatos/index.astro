@@ -2,10 +2,10 @@
 import Image from 'astro/components/Image.astro'
 
 import PageLayout from '@/layouts/BaseLayout.astro'
-import RelatosContent from '@/components/relatos/RelatosMainContent'
+import RelatosMainContentFirebase from '@/components/relatos/RelatosMainContentFirebase'
 import landing from '@/assets/relatos-background.png'
 
-export const prerender = true
+export const prerender = false
 
 const meta = {
   description: 'Relatos e historias de la Guerra de las Malvinas, contadas por sus protagonistas.',
@@ -23,5 +23,5 @@ const meta = {
     width={1920}
   />
 
-  <RelatosContent client:load />
+  <RelatosMainContentFirebase client:load />
 </PageLayout>

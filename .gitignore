@@ -6,6 +6,7 @@
 # Ignore content collection generated files
 .astro
 
+.kiro
 ### Vercel ###
 .vercel
 
@@ -78,3 +79,5 @@ ignore.*
 bunfig.toml
 /src/content/blog/test.*
 /test/
+
+

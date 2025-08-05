@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import RelatosDisplay from '@/components/relatos/RelatosDisplay'
+
+export const prerender = false
+
+const meta = {
+  description: 'Lista completa de relatos e historias de la Guerra de las Malvinas.',
+  title: 'Lista de Relatos - Portal Malvinas'
+}
+---
+
+<BaseLayout meta={meta}>
+  <RelatosDisplay client:only='react' />
+</BaseLayout>

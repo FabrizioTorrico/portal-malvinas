@@ -36,6 +36,20 @@ const links = [
       href: 'https://www.malvinasargentinas.gob.ar/'
     },
     image: malvinas
+  },
+  {
+    title: 'Coordinacion veteranos de malvinas',
+    link: {
+      href: 'https://www.argentina.gob.ar/coordinacion-de-veteranos-y-veteranas-de-la-guerra-de-malvinas'
+    },
+    image: argentina
+  },
+  {
+    title: 'Digitalizacion de coleccion malvinas',
+    link: {
+      href: 'https://www.argentina.gob.ar/defensa/archivos-abiertos/desclasificaciones/malvinas-40-anos'
+    },
+    image: argentina
   }
 ]
 ---
@@ -43,10 +57,13 @@ const links = [
 <BaseLayout meta={{ title: 'Archivo' }}>
   <div class='flex flex-col gap-y-10'>
     <div class='flex flex-col items-center justify-between gap-4 md:flex-row'>
-    <div class="flex flex-col gap-2">
-      <h1 class='font-balboa text-4xl md:text-6xl'>Archivo</h1>
-      <p class="m-auto">En este apartado se presentan diferentes materiales respecto a las Islas Malvinas, portales de noticias, documentales, películas, entre otros</p>
-    </div>
+      <div class='flex flex-col gap-2'>
+        <h1 class='font-balboa text-4xl md:text-6xl'>Archivo</h1>
+        <p class='m-auto'>
+          En este apartado se presentan diferentes materiales respecto a las Islas Malvinas,
+          portales de noticias, documentales, películas, entre otros
+        </p>
+      </div>
       <div class='relative w-full md:w-auto' role='search'>
         <input
           placeholder='Buscar por titulo'
@@ -71,7 +88,7 @@ const links = [
                 src={item.image}
                 alt={`Fotografía de ${item.title}`}
                 class='absolute inset-0 w-full object-cover transition-transform duration-300'
-                loading='lazy'
+                loading='eager'
               />
             </div>
 

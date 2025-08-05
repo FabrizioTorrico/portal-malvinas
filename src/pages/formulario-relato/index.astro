@@ -1,18 +1,6 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import RelatoForm from '@/components/formularios-relato/RelatoForm'
+// Redirect to new route
+export const prerender = false
+
+return Astro.redirect('/relato/formulario', 301)
 ---
-
-<BaseLayout meta={{ title: 'Formulario - Enviar Relato' }}>
-  <div class='flex flex-col gap-y-10'>
-    <div class='flex flex-col gap-2'>
-      <h1 class='font-balboa text-4xl md:text-6xl'>Formulario - Enviar Relato</h1>
-      <p>
-        Este apartado está destinado a presentar a las personas involucradas en la guerra de las
-        Islas Malvinas
-      </p>
-    </div>
-
-    <RelatoForm client:only='react' />
-  </div>
-</BaseLayout>

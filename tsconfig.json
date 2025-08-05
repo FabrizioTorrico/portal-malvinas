@@ -19,6 +19,8 @@
       "@/components/*": ["src/components/*"],
       "@/layouts/*": ["src/layouts/*"],
       "@/utils": ["src/utils/index.ts"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/utils/*": ["src/utils/*"],
       "@/plugins/*": ["src/plugins/*"],
       "@/pages/*": ["src/pages/*"],

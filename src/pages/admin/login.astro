@@ -1,0 +1,10 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import AdminPage from '@/components/admin/AdminPage'
+
+export const prerender = false
+---
+
+<BaseLayout meta={{ title: 'Admin - Portal Malvinas' }}>
+  <AdminPage client:only='react' />
+</BaseLayout>

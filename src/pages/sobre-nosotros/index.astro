@@ -5,16 +5,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 import aboutGroup from '@/assets/sobre-nosotros/about-foto-grupo.png'
 import unlpLogo from '@/assets/sobre-nosotros/unlp-logo.png'
 
-const titleH1 = 'font-bold font-balboa mb-4 text-center text-4xl md:text-5xl'
-const titleH2 = 'font-bold mb-2 text-xl md:text-3xl'
+const titleH1 = 'font-bold font-balboa mb-6 text-center text-4xl md:text-5xl text-primary'
+const titleH2 = 'font-bold mb-4 text-2xl md:text-3xl text-primary border-b-2 border-secondary pb-2'
+const sectionClass = 'bg-card rounded-lg p-6 md:p-8 shadow-sm border border-border'
 ---
 
 <BaseLayout meta={{ title: 'Sobre nosotros' }}>
-  <main class='flex flex-col gap-5'>
-    <!-- Sobre nosotros -->
-    <section>
+  <main class='flex flex-col gap-8 py-4'>
+    <!-- Hero Section -->
+    <section class='from-secondary/10 rounded-xl bg-gradient-to-b to-transparent py-8 text-center'>
       <h1 class={titleH1}>Sobre nosotros</h1>
-      <p class='mx-auto'>
+      <p class='text-muted-foreground mx-auto max-w-4xl px-4 text-lg leading-relaxed'>
         Somos un equipo impulsado por la convicción de que la memoria es un pilar fundamental para
         los pueblos. Este proyecto se inscribe en el seno de la Universidad Nacional de La Plata
         (UNLP), enmarcado en la visión de docentes comprometidos con la difusión y el estudio de la
@@ -23,90 +24,133 @@ const titleH2 = 'font-bold mb-2 text-xl md:text-3xl'
     </section>
 
     <!-- Quienes somos -->
-    <section class='flex flex-col items-start gap-6 md:flex-row'>
-      <Image
-        src={aboutGroup}
-        alt='Descripción de la imagen'
-        widths={[386, 425]}
-        sizes='(max-width: 768px) 386px, 425px'
-        class='mx-auto rounded-xl object-cover text-center shadow-md'
-        format='webp'
-      />
-      <div class='space-y-4 md:w-1/2'>
-        <h2 class={titleH2}>Quienes somos</h2>
-        <p class='text-start'>
-          El desarrollo y la materialización de este portal están a cargo de Fabrizio Torrico y
-          Lautaro Castro, estudiantes avanzados de la Licenciatura en Sistemas de la UNLP. Nuestro
-          objetivo es acercar a la sociedad, desde un enfoque académico, el conocimiento y análisis
-          de los documentos históricos de la Guerra de Malvinas. Trabajamos desde una mirada crítica
-          que aporte a la comprensión del conflicto bélico y a su complejidad en la historia
-          nacional.
-        </p>
+    <section class={sectionClass}>
+      <div class='flex flex-col items-center gap-8 lg:flex-row lg:items-start'>
+        <div class='lg:w-1/2'>
+          <Image
+            src={aboutGroup}
+            alt='Equipo del Portal Malvinas - Fabrizio Torrico y Lautaro Castro'
+            widths={[386, 500, 600]}
+            sizes='(max-width: 768px) 386px, (max-width: 1024px) 500px, 600px'
+            class='border-border w-full rounded-xl border object-cover shadow-lg'
+            format='webp'
+          />
+        </div>
+        <div class='space-y-6 lg:w-1/2'>
+          <h2 class={titleH2}>Quiénes somos</h2>
+          <div class='space-y-4'>
+            <p class='text-foreground leading-relaxed'>
+              El desarrollo y la materialización de este portal están a cargo de <strong
+                class='text-primary'>Fabrizio Torrico</strong
+              > y
+              <strong class='text-primary'>Lautaro Castro</strong>, estudiantes avanzados de la
+              Licenciatura en Sistemas de la UNLP.
+            </p>
+            <p class='text-foreground leading-relaxed'>
+              Nuestro objetivo es acercar a la sociedad, desde un enfoque académico, el conocimiento
+              y análisis de los documentos históricos de la Guerra de Malvinas. Trabajamos desde una
+              mirada crítica que aporte a la comprensión del conflicto bélico y a su complejidad en
+              la historia nacional.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class='flex flex-col gap-6'>
+    <div class='grid grid-cols-1 gap-8'>
       <!-- Contacto -->
-      <section class='order-last md:order-first'>
+      <section class={`${sectionClass} col-span-1`}>
         <h2 class={titleH2}>Contacto</h2>
-        <div class='space-y-1'>
-          <p class='flex items-center gap-2'><span>📞</span> 221-0000000</p>
-          <p class='flex items-center gap-2'>
-            <span>✉️</span>
-            <a href='mailto:correo-ejemplo@.unlp.edu.ar' class='text-blue-600 underline'
-              >areainstitucional@fba.unlp.edu.ar</a
-            >
-          </p>
+        <div class='space-y-4'>
+          <div class='bg-muted flex items-center gap-3 rounded-lg p-3'>
+            <span class='text-2xl'>📞</span>
+            <div>
+              <p class='text-foreground font-medium'>Teléfono</p>
+              <p class='text-muted-foreground'>221-0000000</p>
+            </div>
+          </div>
+          <div class='bg-muted flex items-center gap-3 rounded-lg p-3'>
+            <span class='text-2xl'>✉️</span>
+            <div>
+              <p class='text-foreground font-medium'>Email</p>
+              <a
+                href='mailto:areainstitucional@fba.unlp.edu.ar'
+                class='text-primary hover:text-primary/80 transition-colors'
+              >
+                areainstitucional@fba.unlp.edu.ar
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Sobre el proyecto -->
-      <section class='flex flex-col gap-6'>
-        <div>
-          <h1 class={titleH1}>Sobre el proyecto</h1>
-          <div class='flex items-center gap-4'>
+      <section class={`${sectionClass} col-span-2`}>
+        <div class='space-y-6'>
+          <div class='border-border flex flex-col items-center gap-6 border-b pb-6 md:flex-row'>
             <Image
               src={unlpLogo}
-              width={100}
+              width={120}
               alt='Logo de la Universidad Nacional de La Plata'
-              class='object-cover'
+              class='flex-shrink-0 object-contain'
             />
-            <p class='mb-4 text-start'>
-              Este portal es el resultado de un esfuerzo colaborativo entre la Universidad Nacional
-              de La Plata y la Fuerza Aérea Argentina. Nace del profundo respeto por quienes
-              combatieron en Malvinas y de la necesidad de mantener viva su memoria para las futuras
-              generaciones.
-            </p>
-          </div>
-        </div>
-
-        <div class='space-y-6'>
-          <!-- Identidad Nacional y Respeto -->
-          <div>
-            <h2 class={titleH2}>Identidad Nacional y Respeto:</h2>
-            <p class='text-start'>
-              Cada sección de este portal está pensada desde una mirada plural, en defensa de la
-              verdad, la soberanía y la identidad. La información ha sido revisada por
-              especialistas, historiadores y periodistas para ofrecer un tratamiento riguroso de los
-              contenidos.
-            </p>
+            <div>
+              <h2 class='text-primary mb-3 text-2xl font-bold md:text-3xl'>Sobre el proyecto</h2>
+              <p class='text-foreground leading-relaxed'>
+                Este portal es el resultado de un esfuerzo colaborativo entre la Universidad
+                Nacional de La Plata y la Fuerza Aérea Argentina. Nace del profundo respeto por
+                quienes combatieron en Malvinas y de la necesidad de mantener viva su memoria para
+                las futuras generaciones.
+              </p>
+            </div>
           </div>
 
-          <!-- Agradecimientos -->
-          <div>
-            <h2 class={titleH2}>Agradecimientos y créditos</h2>
-            <p class='text-start'>
-              Agradecemos profundamente a la Universidad Nacional de La Plata, y en particular a los
-              docentes que impulsaron esta iniciativa, por su apoyo institucional y académico.
-            </p>
-            <p class='text-start'>
-              Las recopilaciones son posibles a los documentos de Malvinas ya existentes, quienes
-              con generosidad dedicaron sus testimonios y conocimientos para que podamos llegar a
-              nuevas generaciones.
-            </p>
+          <div class='grid gap-6 md:grid-cols-2'>
+            <!-- Identidad Nacional y Respeto -->
+            <div class='space-y-3'>
+              <h3 class='text-primary flex items-center gap-2 text-xl font-semibold'>
+                <span class='bg-secondary h-2 w-2 rounded-full'></span>
+                Identidad Nacional y Respeto
+              </h3>
+              <p class='text-foreground leading-relaxed'>
+                Cada sección de este portal está pensada desde una mirada plural, en defensa de la
+                verdad, la soberanía y la identidad. La información ha sido revisada por
+                especialistas, historiadores y periodistas para ofrecer un tratamiento riguroso de
+                los contenidos.
+              </p>
+            </div>
+
+            <!-- Agradecimientos -->
+            <div class='space-y-3'>
+              <h3 class='text-primary flex items-center gap-2 text-xl font-semibold'>
+                <span class='bg-secondary h-2 w-2 rounded-full'></span>
+                Agradecimientos y créditos
+              </h3>
+              <div class='space-y-3'>
+                <p class='text-foreground leading-relaxed'>
+                  Agradecemos profundamente a la Universidad Nacional de La Plata, y en particular a
+                  los docentes que impulsaron esta iniciativa, por su apoyo institucional y
+                  académico.
+                </p>
+                <p class='text-foreground leading-relaxed'>
+                  Las recopilaciones son posibles gracias a los documentos de Malvinas ya
+                  existentes, cuyos autores con generosidad dedicaron sus testimonios y
+                  conocimientos para que podamos llegar a nuevas generaciones.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </div>
+
+    <!-- Call to Action -->
+    <section class='bg-primary/5 border-primary/10 rounded-xl border py-8 text-center'>
+      <h3 class='text-primary mb-4 text-2xl font-bold'>Preservando la memoria histórica</h3>
+      <p class='text-muted-foreground mx-auto max-w-2xl leading-relaxed'>
+        Cada testimonio, cada documento y cada historia compartida contribuye a mantener viva la
+        memoria de quienes defendieron nuestra soberanía en las Islas Malvinas.
+      </p>
+    </section>
   </main>
 </BaseLayout>
