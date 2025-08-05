@@ -164,7 +164,7 @@ export const VALIDATION_CONSTANTS = {
   MAX_DNI_IMAGE_SIZE: 5 * 1024 * 1024, // 5MB
   MAX_BANNER_IMAGE_SIZE: 10 * 1024 * 1024, // 10MB
   MAX_PORTAL_IMAGE_SIZE: 10 * 1024 * 1024, // 10MB
-  ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/webp'],
+  ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/webp'] as const,
   MIN_NAME_LENGTH: 2,
   MAX_NAME_LENGTH: 50,
   MIN_PHONE_LENGTH: 10,

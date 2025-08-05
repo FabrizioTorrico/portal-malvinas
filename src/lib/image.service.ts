@@ -21,7 +21,10 @@ export class ImageService {
   /**
    * Validate image file
    */
-  validateImageFile(file: File, maxSize: number = VALIDATION_CONSTANTS.MAX_BANNER_IMAGE_SIZE): ImageValidationResult {
+  validateImageFile(
+    file: File,
+    maxSize: number = VALIDATION_CONSTANTS.MAX_BANNER_IMAGE_SIZE
+  ): ImageValidationResult {
     // Check if file exists
     if (!file) {
       return {
@@ -32,7 +35,7 @@ export class ImageService {
     }
 
     // Check file type
-    if (!VALIDATION_CONSTANTS.ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    if (!(VALIDATION_CONSTANTS.ALLOWED_IMAGE_TYPES as readonly string[]).includes(file.type)) {
       return {
         isValid: false,
         error: 'Tipo de archivo no válido. Solo se permiten imágenes JPG, PNG y WebP.',
@@ -81,13 +84,13 @@ export class ImageService {
     const timestamp = Date.now()
     const randomId = Math.random().toString(36).substring(2, 15)
     const extension = originalName.split('.').pop()?.toLowerCase() || 'jpg'
-    
+
     // Clean original name (remove special characters)
     const cleanName = originalName
       .replace(/\.[^/.]+$/, '') // Remove extension
       .replace(/[^a-zA-Z0-9]/g, '_') // Replace special chars with underscore
       .substring(0, 20) // Limit length
-    
+
     return `${timestamp}_${randomId}_${cleanName}.${extension}`
   }
 
@@ -95,12 +98,7 @@ export class ImageService {
    * Compress image using canvas
    */
   async compressImage(file: File, options: CompressionOptions = {}): Promise<File> {
-    const {
-      maxWidth = 1920,
-      maxHeight = 1080,
-      quality = 0.8,
-      format = 'jpeg'
-    } = options
+    const { maxWidth = 1920, maxHeight = 1080, quality = 0.8, format = 'jpeg' } = options
 
     return new Promise((resolve, reject) => {
       const canvas = document.createElement('canvas')
@@ -115,12 +113,12 @@ export class ImageService {
       img.onload = () => {
         // Calculate new dimensions
         let { width, height } = img
-        
+
         if (width > maxWidth) {
           height = (height * maxWidth) / width
           width = maxWidth
         }
-        
+
         if (height > maxHeight) {
           width = (width * maxHeight) / height
           height = maxHeight
@@ -141,14 +139,10 @@ export class ImageService {
             }
 
             // Create new file with compressed data
-            const compressedFile = new File(
-              [blob],
-              this.generateUniqueFileName(file.name),
-              {
-                type: `image/${format}`,
-                lastModified: Date.now()
-              }
-            )
+            const compressedFile = new File([blob], this.generateUniqueFileName(file.name), {
+              type: `image/${format}`,
+              lastModified: Date.now()
+            })
 
             resolve(compressedFile)
           },
@@ -184,18 +178,18 @@ export class ImageService {
   async getImageDimensions(file: File): Promise<{ width: number; height: number }> {
     return new Promise((resolve, reject) => {
       const img = new Image()
-      
+
       img.onload = () => {
         resolve({
           width: img.naturalWidth,
           height: img.naturalHeight
         })
       }
-      
+
       img.onerror = () => {
         reject(createFirebaseError('file-corrupted'))
       }
-      
+
       img.src = URL.createObjectURL(file)
     })
   }
@@ -220,12 +214,12 @@ export class ImageService {
    * Process image for upload (validate and optionally compress)
    */
   async processImageForUpload(
-    file: File, 
+    file: File,
     validationType: 'dni' | 'banner' | 'portal-memoria'
   ): Promise<File> {
     // Validate file
     let validation: ImageValidationResult
-    
+
     switch (validationType) {
       case 'dni':
         validation = this.validateDniImage(file)
@@ -243,9 +237,10 @@ export class ImageService {
     }
 
     // Check if compression is needed
-    const maxSizeForCompression = validationType === 'dni' ? 
-      VALIDATION_CONSTANTS.MAX_DNI_IMAGE_SIZE / 2 : 
-      VALIDATION_CONSTANTS.MAX_BANNER_IMAGE_SIZE / 2
+    const maxSizeForCompression =
+      validationType === 'dni'
+        ? VALIDATION_CONSTANTS.MAX_DNI_IMAGE_SIZE / 2
+        : VALIDATION_CONSTANTS.MAX_BANNER_IMAGE_SIZE / 2
 
     const needsCompression = await this.shouldCompressImage(file, maxSizeForCompression)
 
@@ -271,15 +266,15 @@ export class ImageService {
   async fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
-      
+
       reader.onload = () => {
         resolve(reader.result as string)
       }
-      
+
       reader.onerror = () => {
         reject(createFirebaseError('file-corrupted'))
       }
-      
+
       reader.readAsDataURL(file)
     })
   }
@@ -302,15 +297,15 @@ export class ImageService {
    * Batch validate multiple images
    */
   validateMultipleImages(
-    files: File[], 
+    files: File[],
     validationType: 'dni' | 'banner' | 'portal-memoria'
   ): { valid: File[]; invalid: { file: File; error: string }[] } {
     const valid: File[] = []
     const invalid: { file: File; error: string }[] = []
 
-    files.forEach(file => {
+    files.forEach((file) => {
       let validation: ImageValidationResult
-      
+
       switch (validationType) {
         case 'dni':
           validation = this.validateDniImage(file)
