@@ -1,0 +1,408 @@
+import React, { useState, type FC } from 'react'
+
+import { useMultiUpload } from '../../hooks/useFirebaseUpload'
+import { firebaseService } from '../../lib/firebase.service'
+import {
+  formatValidationErrors,
+  sanitizeFormData,
+  validatePortalMemoriaSubmission
+} from '../../lib/validation.schemas'
+import type { PortalMemoriaFormData } from '../../types/firebase.types'
+import { FileInput } from '../ui/FileInput'
+import { ProgressIndicator } from '../ui/ProgressIndicator'
+
+interface FormErrors {
+  [key: string]: string
+}
+
+interface SubmissionState {
+  isSubmitting: boolean
+  isSuccess: boolean
+  error: string | null
+  submissionId: string | null
+}
+
+const PortalMemoriaForm: FC = () => {
+  // Form state
+  const [formData, setFormData] = useState<PortalMemoriaFormData>({
+    name: '',
+    surname: '',
+    phone: '',
+    description: '',
+    dni_image: null,
+    image: null
+  })
+
+  const [formErrors, setFormErrors] = useState<FormErrors>({})
+  const [submissionState, setSubmissionState] = useState<SubmissionState>({
+    isSubmitting: false,
+    isSuccess: false,
+    error: null,
+    submissionId: null
+  })
+
+  // Upload hooks
+  const { uploadStates, uploadDniImage, uploadPortalMemoriaImage, resetAllUploads } =
+    useMultiUpload()
+
+  // Form handlers
+  const updateField = (field: keyof PortalMemoriaFormData, value: any) => {
+    setFormData((prev: PortalMemoriaFormData) => ({ ...prev, [field]: value }))
+
+    // Clear field error when user starts typing
+    if (formErrors[field as string]) {
+      setFormErrors((prev: FormErrors) => ({ ...prev, [field as string]: '' }))
+    }
+  }
+
+  const handleDniUpload = async (file: File) => {
+    try {
+      await uploadDniImage(file, 'portal-memoria')
+    } catch (error) {
+      console.error('DNI upload failed:', error)
+    }
+  }
+
+  const handleImageUpload = async (file: File) => {
+    try {
+      await uploadPortalMemoriaImage(file)
+    } catch (error) {
+      console.error('Image upload failed:', error)
+    }
+  }
+
+  const validateForm = (): boolean => {
+    try {
+      // Prepare data for validation
+      const dataToValidate = {
+        ...formData,
+        dni_image: formData.dni_image,
+        image: formData.image
+      }
+
+      // Sanitize form data
+      const sanitizedData = sanitizeFormData(dataToValidate)
+
+      // Validate with Zod schema
+      const validation = validatePortalMemoriaSubmission(sanitizedData)
+
+      if (!validation.success) {
+        const errors = formatValidationErrors(validation.error)
+        setFormErrors(errors)
+        return false
+      }
+
+      // Update form data with sanitized values
+      setFormData((prev: PortalMemoriaFormData) => ({
+        ...prev,
+        ...sanitizedData
+      }))
+
+      setFormErrors({})
+      return true
+    } catch (error) {
+      console.error('Form validation error:', error)
+      setFormErrors({ general: 'Error al validar el formulario' })
+      return false
+    }
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    // Prevent double submission
+    if (submissionState.isSubmitting || uploadStates.isAnyUploading) {
+      return
+    }
+
+    setSubmissionState({
+      isSubmitting: true,
+      isSuccess: false,
+      error: null,
+      submissionId: null
+    })
+
+    try {
+      // Validate form
+      const isValid = validateForm()
+      if (!isValid) {
+        throw new Error('Por favor, corrige los errores en el formulario')
+      }
+
+      // Check if images are uploaded
+      if (!uploadStates.dni.url || !uploadStates.image.url) {
+        throw new Error('Por favor, espera a que se suban todas las imágenes')
+      }
+
+      // Prepare submission data
+      const submissionData = {
+        name: formData.name,
+        surname: formData.surname,
+        phone: formData.phone,
+        description: formData.description,
+        dni_image_url: uploadStates.dni.url,
+        image_url: uploadStates.image.url
+      }
+
+      // Submit to Firebase
+      const submissionId = await firebaseService.createPortalMemoria(submissionData)
+
+      // Success
+      setSubmissionState({
+        isSubmitting: false,
+        isSuccess: true,
+        error: null,
+        submissionId
+      })
+
+      // Show success message
+      setTimeout(() => {
+        resetForm()
+      }, 3000)
+    } catch (error: any) {
+      console.error('Submission error:', error)
+      setSubmissionState({
+        isSubmitting: false,
+        isSuccess: false,
+        error: error.message || 'Error al enviar el formulario. Intenta nuevamente.',
+        submissionId: null
+      })
+    }
+  }
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      surname: '',
+      phone: '',
+      description: '',
+      dni_image: null,
+      image: null
+    })
+    setFormErrors({})
+    setSubmissionState({
+      isSubmitting: false,
+      isSuccess: false,
+      error: null,
+      submissionId: null
+    })
+    resetAllUploads()
+  }
+
+  // Success message
+  if (submissionState.isSuccess) {
+    return (
+      <div className='mx-auto max-w-2xl rounded-lg border border-green-200 bg-green-50 p-6'>
+        <div className='text-center'>
+          <div className='mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100'>
+            <svg className='h-8 w-8 text-green-600' fill='currentColor' viewBox='0 0 20 20'>
+              <path
+                fillRule='evenodd'
+                d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </div>
+          <h2 className='mb-2 text-2xl font-bold text-green-800'>¡Entrada enviada exitosamente!</h2>
+          <p className='mb-4 text-green-700'>
+            Tu entrada al portal de la memoria ha sido enviada y está pendiente de aprobación. Te
+            notificaremos cuando sea publicada.
+          </p>
+          <p className='mb-6 text-sm text-green-600'>ID de envío: {submissionState.submissionId}</p>
+          <button
+            onClick={resetForm}
+            className='rounded bg-green-600 px-6 py-2 text-white transition-colors hover:bg-green-700'
+          >
+            Enviar otra entrada
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className='space-y-8'>
+      {/* General Error */}
+      {(submissionState.error || formErrors.general) && (
+        <div className='rounded-lg border border-red-200 bg-red-50 p-4'>
+          <div className='flex'>
+            <svg
+              className='mr-2 mt-0.5 h-5 w-5 text-red-400'
+              fill='currentColor'
+              viewBox='0 0 20 20'
+            >
+              <path
+                fillRule='evenodd'
+                d='M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z'
+                clipRule='evenodd'
+              />
+            </svg>
+            <div>
+              <h3 className='text-sm font-medium text-red-800'>Error en el formulario</h3>
+              <p className='mt-1 text-sm text-red-700'>
+                {submissionState.error || formErrors.general}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Form Fields */}
+      <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
+        {/* Name */}
+        <div>
+          <label htmlFor='name' className='mb-2 block font-bold text-gray-700'>
+            Nombre *
+          </label>
+          <input
+            type='text'
+            id='name'
+            name='name'
+            value={formData.name}
+            onChange={(e) => updateField('name', e.target.value)}
+            className={`placeholder:text-muted-foreground border-foreground w-full border-2 px-4 py-2 shadow-sm ${
+              formErrors.name ? 'border-red-500 bg-red-50' : ''
+            }`}
+            placeholder='ej. Juan Pedro'
+            required
+            disabled={submissionState.isSubmitting}
+          />
+          {formErrors.name && <p className='mt-1 text-sm text-red-600'>{formErrors.name}</p>}
+        </div>
+
+        {/* Surname */}
+        <div>
+          <label htmlFor='surname' className='mb-2 block font-bold text-gray-700'>
+            Apellido *
+          </label>
+          <input
+            type='text'
+            id='surname'
+            name='surname'
+            value={formData.surname}
+            onChange={(e) => updateField('surname', e.target.value)}
+            className={`placeholder:text-muted-foreground border-foreground w-full border-2 px-4 py-2 shadow-sm ${
+              formErrors.surname ? 'border-red-500 bg-red-50' : ''
+            }`}
+            placeholder='ej. Pérez Apaolaza'
+            required
+            disabled={submissionState.isSubmitting}
+          />
+          {formErrors.surname && <p className='mt-1 text-sm text-red-600'>{formErrors.surname}</p>}
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label htmlFor='phone' className='mb-2 block font-bold text-gray-700'>
+            Teléfono *
+          </label>
+          <input
+            type='tel'
+            id='phone'
+            name='phone'
+            value={formData.phone}
+            onChange={(e) => updateField('phone', e.target.value)}
+            className={`placeholder:text-muted-foreground border-foreground w-full border-2 px-4 py-2 shadow-sm ${
+              formErrors.phone ? 'border-red-500 bg-red-50' : ''
+            }`}
+            placeholder='ej. 221012345678'
+            required
+            disabled={submissionState.isSubmitting}
+          />
+          {formErrors.phone && <p className='mt-1 text-sm text-red-600'>{formErrors.phone}</p>}
+        </div>
+
+        {/* Description */}
+        <div>
+          <label htmlFor='description' className='mb-2 block font-bold text-gray-700'>
+            Descripción *
+          </label>
+          <textarea
+            id='description'
+            name='description'
+            value={formData.description}
+            onChange={(e) => updateField('description', e.target.value)}
+            rows={4}
+            className={`placeholder:text-muted-foreground border-foreground resize-vertical w-full border-2 px-4 py-2 shadow-sm ${
+              formErrors.description ? 'border-red-500 bg-red-50' : ''
+            }`}
+            placeholder='Describe brevemente la historia o contexto de la persona...'
+            required
+            disabled={submissionState.isSubmitting}
+          />
+          {formErrors.description && (
+            <p className='mt-1 text-sm text-red-600'>{formErrors.description}</p>
+          )}
+        </div>
+      </div>
+
+      {/* File Uploads */}
+      <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
+        {/* DNI Image */}
+        <FileInput
+          id='dni_image'
+          name='dni_image'
+          label='Foto DNI'
+          description='Debe mostrarse el distintivo especial de Malvinas.'
+          required
+          value={formData.dni_image}
+          onChange={(file) => updateField('dni_image', file)}
+          onUpload={handleDniUpload}
+          uploadProgress={uploadStates.dni.progress}
+          isUploading={uploadStates.dni.isUploading}
+          uploadError={uploadStates.dni.error}
+          error={formErrors.dni_image}
+          maxSize={5}
+          disabled={submissionState.isSubmitting}
+        />
+
+        {/* Memorial Image */}
+        <FileInput
+          id='image'
+          name='image'
+          label='Fotografía'
+          description='Imagen que representará a la persona en el portal de la memoria.'
+          required
+          value={formData.image}
+          onChange={(file) => updateField('image', file)}
+          onUpload={handleImageUpload}
+          uploadProgress={uploadStates.image.progress}
+          isUploading={uploadStates.image.isUploading}
+          uploadError={uploadStates.image.error}
+          error={formErrors.image}
+          maxSize={10}
+          disabled={submissionState.isSubmitting}
+        />
+      </div>
+
+      {/* Submit Button */}
+      <div className='flex items-center justify-center'>
+        <button
+          type='submit'
+          disabled={submissionState.isSubmitting || uploadStates.isAnyUploading}
+          className={`mt-4 scale-110 border-2 px-6 py-3 font-medium transition-all ${
+            submissionState.isSubmitting || uploadStates.isAnyUploading
+              ? 'cursor-not-allowed border-gray-400 bg-gray-300 text-gray-500'
+              : 'bg-secondary border-primary text-primary hover:bg-primary hover:text-secondary'
+          } `}
+        >
+          {submissionState.isSubmitting
+            ? 'Enviando...'
+            : uploadStates.isAnyUploading
+              ? 'Subiendo imágenes...'
+              : 'Enviar al Portal'}
+        </button>
+      </div>
+
+      {/* Submission Progress */}
+      {submissionState.isSubmitting && (
+        <div className='mt-4'>
+          <ProgressIndicator progress={75} isUploading={true} showPercentage={false} />
+          <p className='mt-2 text-center text-sm text-gray-600'>Procesando tu entrada...</p>
+        </div>
+      )}
+    </form>
+  )
+}
+
+export default PortalMemoriaForm

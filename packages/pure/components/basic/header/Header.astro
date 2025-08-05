@@ -1,5 +1,6 @@
 ---
 import config from 'virtual:config'
+
 import { Icon } from '../../user'
 import MobileMenu from './MobileMenu.astro'
 import SettingsPanel from './SettingsPanel.astro'
@@ -26,10 +27,7 @@ const isRoot = Astro.url.pathname === '/'
       {typedConfig.title}
     </a>
 
-    <div class='flex items-center gap-x-2'>
-      <!-- Mobile Menu -->
-      <MobileMenu menuItems={typedConfig.header.menu} isRoot={isRoot} />
-
+    <div class='flex items-center gap-x-2' style='flex-direction: row-reverse;'>
       <!-- Action Buttons -->
       <div class='relative z-30 flex gap-x-4 group-[.not-top]:gap-x-2' style='transition:gap 0.3s'>
         <!-- Settings Panel Toggle Button -->
@@ -58,6 +56,9 @@ const isRoot = Astro.url.pathname === '/'
           <Icon class='size-5' name='menu' />
         </button>
       </div>
+
+      <!-- Mobile Menu -->
+      <MobileMenu menuItems={typedConfig.header.menu} isRoot={isRoot} />
     </div>
   </div>
 </header-component>
@@ -65,7 +66,7 @@ const isRoot = Astro.url.pathname === '/'
 <script is:inline>
   // Apply saved theme and font preferences as early as possible
   // to prevent FOUC (Flash Of Unstyled Content).
-  
+
   // 1. Apply Theme
   const storedTheme = localStorage.getItem('theme') || 'system'
   document.documentElement.dataset.theme = storedTheme
@@ -158,11 +159,11 @@ const isRoot = Astro.url.pathname === '/'
         border-color 0.15s,
         grid-template-rows 0.3s;
     }
-    
+
     .expanded #headerExpandContent {
       grid-template-rows: 1fr;
     }
-    
+
     .expanded.not-top #headerExpandContent {
       box-shadow:
         rgb(255, 255, 255) 0px 0px 0px 0px,

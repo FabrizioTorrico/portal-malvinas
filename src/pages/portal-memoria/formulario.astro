@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PortalMemoriaForm from '@/components/portal-memoria/PortalMemoriaForm'
+
+export const prerender = false
+---
+
+<BaseLayout meta={{ title: 'Formulario - Portal de la Memoria' }}>
+  <div class='flex flex-col gap-y-10'>
+    <div class='flex flex-col gap-2'>
+      <h1 class='font-balboa text-4xl md:text-6xl'>Formulario - Portal de la Memoria</h1>
+      <p>
+        Comparte la memoria de un ser querido que participó en la Guerra de las Malvinas. Su
+        historia será parte del portal de la memoria tras ser revisada.
+      </p>
+    </div>
+
+    <PortalMemoriaForm client:only='react' />
+  </div>
+</BaseLayout>

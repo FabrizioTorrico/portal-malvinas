@@ -1,0 +1,31 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow uploads to relatos folders (both authenticated and unauthenticated)
+    match /relatos/{allPaths=**} {
+      allow write: if resource == null && isValidImageUpload();
+      allow read: if true; // Public read for approved content
+    }
+    
+    // Allow uploads to portal-memoria folders (both authenticated and unauthenticated)
+    match /portal-memoria/{allPaths=**} {
+      allow write: if resource == null && isValidImageUpload();
+      allow read: if true;
+    }
+    
+    // Admin uploads
+    match /admin_uploads/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    function isValidImageUpload() {
+      return request.resource.size < 10 * 1024 * 1024 && // 10MB limit
+             request.resource.contentType.matches('image/.*');
+    }
+    
+    function isAdmin() {
+      // Since there's only one admin user, any authenticated user is admin
+      return request.auth != null;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Relatos collection
+    match /relatos/{document} {
+      // Allow anyone to create (both authenticated and unauthenticated)
+      allow create: if isValidRelatoSubmission(resource.data);
+      
+      // Allow public read for approved documents
+      allow read: if resource.data.status == 'approved';
+      
+      // Allow admin to read and update all documents
+      allow read, update: if isAdmin();
+    }
+    
+    // Portal memoria collection
+    match /portal-memoria/{document} {
+      // Allow anyone to create (both authenticated and unauthenticated)
+      allow create: if isValidPortalMemoriaSubmission(resource.data);
+      
+      // Allow public read for approved documents
+      allow read: if resource.data.status == 'approved';
+      
+      // Allow admin to read and update all documents
+      allow read, update: if isAdmin();
+    }
+    
+    // Helper functions
+    function isAdmin() {
+      // Since there's only one admin user, any authenticated user is admin
+      return request.auth != null;
+    }
+    
+    function isValidRelatoSubmission(data) {
+      return data.status == 'pending' &&
+             data.name is string && data.name.size() > 0 &&
+             data.surname is string && data.surname.size() > 0 &&
+             data.phone is string && data.phone.size() > 0 &&
+             data.title is string && data.title.size() > 0 &&
+             data.content is string && data.content.size() > 0 &&
+             data.dni_image_url is string && data.dni_image_url.size() > 0;
+    }
+    
+    function isValidPortalMemoriaSubmission(data) {
+      return data.status == 'pending' &&
+             data.name is string && data.name.size() > 0 &&
+             data.surname is string && data.surname.size() > 0 &&
+             data.phone is string && data.phone.size() > 0 &&
+             data.description is string && data.description.size() > 0 &&
+             data.dni_image_url is string && data.dni_image_url.size() > 0 &&
+             data.image_url is string && data.image_url.size() > 0;
+    }
+  }
+}

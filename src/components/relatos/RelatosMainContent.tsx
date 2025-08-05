@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Carrousel from './Carrousel'
 
 export type Story = {
-  id: number
+  id: string
   title: string
   category: string
   categoryLabel: string
@@ -16,7 +16,7 @@ export type Story = {
 
 const stories: Story[] = [
   {
-    id: 1,
+    id: '1',
     title: 'El Último Vuelo del Teniente García',
     category: 'heroismo',
     categoryLabel: 'Heroísmo',
@@ -28,7 +28,7 @@ const stories: Story[] = [
     featured: true
   },
   {
-    id: 2,
+    id: '2',
     title: 'Cartas desde Puerto Argentino',
     category: 'cotidiana',
     categoryLabel: 'Vida Cotidiana',
@@ -39,7 +39,7 @@ const stories: Story[] = [
     background: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=1200'
   },
   {
-    id: 3,
+    id: '3',
     title: 'La Batalla de Goose Green',
     category: 'batalla',
     categoryLabel: 'Batallas',
@@ -50,7 +50,7 @@ const stories: Story[] = [
     background: 'https://images.unsplash.com/photo-1569967164309-95b2d496c792?w=1200'
   },
   {
-    id: 4,
+    id: '4',
     title: 'Hermanos en la Trinchera',
     category: 'compañerismo',
     categoryLabel: 'Compañerismo',
@@ -61,7 +61,7 @@ const stories: Story[] = [
     background: 'https://images.unsplash.com/photo-1586796676567-040c7e8c6f8d?w=1200'
   },
   {
-    id: 5,
+    id: '5',
     title: 'El Médico de Campaña',
     category: 'heroismo',
     categoryLabel: 'Heroísmo',
@@ -72,7 +72,7 @@ const stories: Story[] = [
     background: 'https://images.unsplash.com/photo-1544717302-de2939b7ef71?w=1200'
   },
   {
-    id: 6,
+    id: '6',
     title: 'La Vigilia del Cabo Morales',
     category: 'batalla',
     categoryLabel: 'Batallas',
@@ -92,6 +92,7 @@ export default function RelatosMainContent() {
       story.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       story.description.toLowerCase().includes(searchQuery.toLowerCase())
   )
+
   return (
     <main className='h-84vh flex flex-col gap-6'>
       <h1 className='font-balboa text-center text-5xl text-white md:text-6xl'>
@@ -129,7 +130,7 @@ export default function RelatosMainContent() {
               </svg>
             </button>
           </div>
-          <a href='/formulario-relato' className='h-full'>
+          <a href='/relato/formulario' className='h-full'>
             <div className='bg-secondary text-primary flex h-full w-max items-center justify-center rounded-xl p-1.5 px-3.5 font-medium'>
               Enviar Relato
             </div>

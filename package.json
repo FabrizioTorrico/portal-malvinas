@@ -15,7 +15,10 @@
     "format": "prettier --write  '**/*.{js,jsx,ts,tsx,md,mdx,astro}'",
     "lint": "eslint --fix 'src/**/*.{js,ts,jsx,tsx,astro}'",
     "yijiansilian": "bun lint && bun sync && bun check && bun format",
-    "clean": "rm -rf .astro .vercel dist"
+    "clean": "rm -rf .astro .vercel dist",
+    "firebase:emulators": "firebase emulators:start",
+    "firebase:deploy": "firebase deploy",
+    "firebase:deploy:rules": "firebase deploy --only firestore:rules,storage"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -25,6 +28,10 @@
     "@blocknote/core": "^0.34.0",
     "@blocknote/mantine": "^0.34.0",
     "@blocknote/react": "^0.34.0",
+    "@firebase/app": "^0.14.0",
+    "@firebase/auth": "^1.11.0",
+    "@firebase/firestore": "^4.9.0",
+    "@firebase/storage": "^0.14.0",
     "@fontsource-variable/montserrat": "^5.2.5",
     "@fontsource-variable/roboto": "^5.2.5",
     "@playform/compress": "^0.1.9",
@@ -33,6 +40,7 @@
     "@waline/client": "^3.5.7",
     "astro": "^5.8.1",
     "astro-pure": "workspace:1.2.7",
+    "firebase": "^12.0.0",
     "katex": "^0.16.22",
     "marked": "^16.1.0",
     "rehype-katex": "^7.0.1",
