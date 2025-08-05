@@ -158,8 +158,8 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
   return (
     <div className='mx-auto max-w-7xl p-6'>
       <div className='mb-8'>
-        <h1 className='mb-2 text-3xl font-bold text-gray-900'>Panel de Administración</h1>
-        <p className='text-gray-600'>Gestiona las solicitudes pendientes de aprobación</p>
+        <h1 className='mb-2 text-3xl font-bold'>Panel de Administración</h1>
+        <p>Gestiona las solicitudes pendientes de aprobación</p>
       </div>
 
       {error && (
@@ -238,18 +238,18 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
           {filteredSubmissions.map((submission) => (
             <div
               key={submission.id}
-              className='cursor-pointer rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md'
+              className='border-primary bg-muted cursor-pointer rounded-lg border border-2 shadow-sm transition-shadow hover:shadow-md'
               onClick={() => openSubmissionModal(submission)}
             >
               <div className='p-6'>
                 <div className='mb-4 flex items-start justify-between'>
                   <div className='flex-1'>
-                    <h3 className='mb-1 text-lg font-semibold text-gray-900'>
+                    <h3 className='mb-1 text-lg font-semibold'>
                       {submission.type === 'relatos'
                         ? (submission.data as RelatoDocument).title
                         : `${submission.data.name} ${submission.data.surname}`}
                     </h3>
-                    <p className='text-sm text-gray-600'>
+                    <p className='text-sm'>
                       Por {submission.data.name} {submission.data.surname}
                     </p>
                   </div>
@@ -259,14 +259,14 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
                 </div>
 
                 <div className='mb-4'>
-                  <p className='line-clamp-3 text-sm text-gray-700'>
+                  <p className='bg-background text-foreground line-clamp-3 rounded-lg p-4 text-sm'>
                     {submission.type === 'relatos'
                       ? (submission.data as RelatoDocument).content
                       : (submission.data as PortalMemoriaDocument).description}
                   </p>
                 </div>
 
-                <div className='flex items-center justify-between text-xs text-gray-500'>
+                <div className='flex items-center justify-between text-xs'>
                   <span>Enviado: {formatDate(submission.data.created_at)}</span>
                   <span className='capitalize'>{submission.type.replace('-', ' ')}</span>
                 </div>
@@ -279,16 +279,13 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
       {/* Submission Detail Modal */}
       {selectedSubmission && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4'>
-          <div className='max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white'>
+          <div className='bg-muted border-primary max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg border-2'>
             {/* Modal Header */}
             <div className='flex items-center justify-between border-b p-6'>
-              <h2 className='text-2xl font-bold text-gray-900'>
+              <h2 className='text-2xl font-bold'>
                 Revisar {selectedSubmission.type === 'relatos' ? 'Relato' : 'Portal Memoria'}
               </h2>
-              <button
-                onClick={closeSubmissionModal}
-                className='text-gray-400 transition-colors hover:text-gray-600'
-              >
+              <button onClick={closeSubmissionModal} className=''>
                 <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 20 20'>
                   <path
                     fillRule='evenodd'
@@ -301,13 +298,11 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
 
             {/* Modal Content */}
             <div className='p-6'>
-              <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
+              <div className='grid grid-cols-1 gap-6'>
                 {/* Submission Details */}
                 <div className='space-y-4'>
                   <div>
-                    <h3 className='mb-2 text-lg font-semibold text-gray-900'>
-                      Información Personal
-                    </h3>
+                    <h3 className='mb-2 text-lg font-semibold'>Información Personal</h3>
                     <div className='space-y-2'>
                       <p>
                         <strong>Nombre:</strong> {selectedSubmission.data.name}
@@ -329,12 +324,12 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
                       <h3 className='mb-2 text-lg font-semibold text-gray-900'>Relato</h3>
                       <div className='space-y-2'>
                         <p>
-                          <strong>Título:</strong>{' '}
+                          <strong>Título:</strong>
                           {(selectedSubmission.data as RelatoDocument).title}
                         </p>
                         <div>
                           <strong>Contenido:</strong>
-                          <div className='mt-2 max-h-60 overflow-y-auto rounded-lg bg-gray-50 p-3'>
+                          <div className='bg-background mt-2 max-h-60 overflow-y-auto rounded-lg p-3'>
                             <p className='whitespace-pre-wrap text-sm'>
                               {(selectedSubmission.data as RelatoDocument).content}
                             </p>
@@ -344,10 +339,10 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
                     </div>
                   ) : (
                     <div>
-                      <h3 className='mb-2 text-lg font-semibold text-gray-900'>Portal Memoria</h3>
+                      <h3 className='mb-2 text-lg font-semibold'>Portal Memoria</h3>
                       <div>
                         <strong>Descripción:</strong>
-                        <div className='mt-2 rounded-lg bg-gray-50 p-3'>
+                        <div className='bg-background text-foreground mt-2 rounded-lg p-4 text-sm'>
                           <p className='whitespace-pre-wrap text-sm'>
                             {(selectedSubmission.data as PortalMemoriaDocument).description}
                           </p>
@@ -364,7 +359,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
                     <img
                       src={selectedSubmission.data.dni_image_url}
                       alt='DNI'
-                      className='h-48 w-full rounded-lg border object-cover'
+                      className='h-full w-full rounded-lg border object-cover'
                     />
                   </div>
 
@@ -379,7 +374,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
                           : (selectedSubmission.data as PortalMemoriaDocument).image_url
                       }
                       alt={selectedSubmission.type === 'relatos' ? 'Banner' : 'Fotografía'}
-                      className='h-48 w-full rounded-lg border object-cover'
+                      className='h-full w-full rounded-lg border object-cover'
                     />
                   </div>
                 </div>
@@ -387,10 +382,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
 
               {/* Rejection Notes */}
               <div className='mt-6'>
-                <label
-                  htmlFor='rejectionNotes'
-                  className='mb-2 block text-sm font-medium text-gray-700'
-                >
+                <label htmlFor='rejectionNotes' className='mb-2 block text-sm font-medium'>
                   Notas de rechazo (opcional)
                 </label>
                 <textarea
@@ -405,11 +397,11 @@ const AdminPanel: FC<AdminPanelProps> = ({ adminId }) => {
             </div>
 
             {/* Modal Actions */}
-            <div className='rounded-b-lg border-t bg-gray-50 px-6 py-4'>
+            <div className='rounded-b-lg border-t px-6 py-4'>
               <div className='flex justify-end space-x-3'>
                 <button
                   onClick={closeSubmissionModal}
-                  className='rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50'
+                  className='rounded-lg border border-gray-400 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50'
                   disabled={actionLoading === selectedSubmission.id}
                 >
                   Cancelar

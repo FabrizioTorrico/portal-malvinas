@@ -123,7 +123,7 @@ const AdminDashboard: FC = () => {
 
           {/* Stats Cards */}
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
-            <div className='rounded-lg bg-white p-6 shadow'>
+            <div className='bg-muted rounded-lg p-6 shadow'>
               <div className='flex items-center'>
                 <div className='flex-shrink-0'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-full bg-yellow-100'>

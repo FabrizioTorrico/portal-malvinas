@@ -292,23 +292,19 @@ export default function PortalMemoriaGallery() {
       {/* Modal */}
       {selectedEntry && (
         <div
-          className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-4'
+          className='fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 p-4'
           onClick={closeModal}
         >
           <div
-            className='max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg bg-white'
+            className='border-primary bg-muted max-h-[90vh] w-full max-w-2xl overflow-y-auto border-2'
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className='flex items-center justify-between border-b p-6'>
-              <h2 className='text-2xl font-bold text-gray-900'>
+              <h2 className='text-2xl font-bold'>
                 {selectedEntry.name} {selectedEntry.surname}
               </h2>
-              <button
-                onClick={closeModal}
-                className='text-gray-400 transition-colors hover:text-gray-600'
-                aria-label='Cerrar modal'
-              >
+              <button onClick={closeModal} className='bg-muted' aria-label='Cerrar modal'>
                 <svg className='h-6 w-6' fill='currentColor' viewBox='0 0 20 20'>
                   <path
                     fillRule='evenodd'
@@ -325,32 +321,31 @@ export default function PortalMemoriaGallery() {
                 <img
                   src={selectedEntry.image_url}
                   alt={`Fotografía de ${selectedEntry.name} ${selectedEntry.surname}`}
-                  className='h-64 w-full rounded-lg object-cover md:h-80'
+                  className='h-64 w-full object-cover md:h-80'
                 />
               </div>
 
               <div className='space-y-4'>
                 <div>
-                  <h3 className='mb-2 text-lg font-semibold text-gray-900'>Descripción</h3>
-                  <p className='leading-relaxed text-gray-700'>{selectedEntry.description}</p>
-                </div>
-
-                <div className='border-t border-gray-200 pt-4'>
-                  <p className='text-sm text-gray-500'>
-                    Agregado el{' '}
-                    {selectedEntry.created_at.toLocaleDateString('es-AR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
+                  <h3 className='text-muted-foreground mb-2 text-lg font-semibold'>Descripción</h3>
+                  <p className='text-muted-foreground leading-relaxed'>
+                    {selectedEntry.description}
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className='rounded-b-lg border-t bg-gray-50 px-6 py-4'>
-              <div className='flex justify-end'>
+            <div className='bg-muted rounded-b-lg border-t px-6 py-4'>
+              <div className='flex justify-between'>
+                <p className='text-muted-foreground text-sm'>
+                  Agregado el{' '}
+                  {selectedEntry.created_at.toLocaleDateString('es-AR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
                 <button
                   onClick={closeModal}
                   className='rounded-lg bg-gray-600 px-4 py-2 text-white transition-colors hover:bg-gray-700'

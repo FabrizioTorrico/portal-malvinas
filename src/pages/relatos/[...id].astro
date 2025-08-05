@@ -106,11 +106,11 @@ const content = await marked.parse(story.content)
       )
     }
     <div class='mb-4'>
-      <h1 id='titulo' class='mb-2 text-3xl font-bold text-gray-900'>
+      <h1 id='titulo' class='mb-2 text-3xl font-bold'>
         {story.title}
       </h1>
-      <p class='text-lg text-gray-600'>Por {story.name} {story.surname}</p>
-      <p class='mt-2 text-sm text-gray-500'>
+      <p class='text-lg'>Por {story.name} {story.surname}</p>
+      <p class='mt-2 text-sm'>
         Publicado el {
           new Date(story.created_at?.toDate?.() || story.created_at).toLocaleDateString('es-AR', {
             year: 'numeric',

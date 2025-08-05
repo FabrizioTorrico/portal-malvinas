@@ -103,10 +103,8 @@ const AdminAuth: FC<AdminAuthProps> = ({ onAuthChange, children }) => {
       <div className='flex min-h-[80vh] items-center justify-center'>
         <div className='w-full max-w-md space-y-8'>
           <div>
-            <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
-              Panel de Administración
-            </h2>
-            <p className='mt-2 text-center text-sm text-gray-600'>
+            <h2 className='mt-6 text-center text-3xl font-extrabold'>Panel de Administración</h2>
+            <p className='mt-2 text-center text-sm'>
               Inicia sesión para acceder al panel de administración
             </p>
           </div>
@@ -136,7 +134,7 @@ const AdminAuth: FC<AdminAuthProps> = ({ onAuthChange, children }) => {
 
             <div className='space-y-4'>
               <div>
-                <label htmlFor='email' className='mb-2 block font-bold text-gray-700'>
+                <label htmlFor='email' className='text-foreground mb-2 block font-bold'>
                   Email <span className='text-red-500'>*</span>
                 </label>
                 <input
@@ -153,7 +151,7 @@ const AdminAuth: FC<AdminAuthProps> = ({ onAuthChange, children }) => {
               </div>
 
               <div>
-                <label htmlFor='email' className='mb-2 block font-bold text-gray-700'>
+                <label htmlFor='email' className='text-foreground mb-2 block font-bold'>
                   Contraseña <span className='text-red-500'>*</span>
                 </label>
                 <input
@@ -198,17 +196,17 @@ const AdminAuth: FC<AdminAuthProps> = ({ onAuthChange, children }) => {
 
   // Authenticated - show admin panel with logout option
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <div className='min-h-screen'>
       {/* Header with logout */}
-      <header className='border-b bg-white shadow-sm'>
+      <header className='bg-muted border-b shadow-sm'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center justify-between py-4'>
             <div>
-              <p className='text-sm text-gray-700'>Administrador: {user.email}</p>
+              <p className='text-foreground text-sm'>Administrador: {user.email}</p>
             </div>
             <button
               onClick={handleLogout}
-              className='inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50'
+              className='text-foreground hover:text-primary inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium transition-colors'
             >
               <svg className='mr-2 h-4 w-4' fill='currentColor' viewBox='0 0 20 20'>
                 <path
