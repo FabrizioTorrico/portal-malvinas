@@ -279,7 +279,7 @@ export default function PortalMemoriaGallery() {
                   <p className='text-foreground text-lg font-semibold'>
                     {entry.name} {entry.surname}
                   </p>
-                  <p className='text-muted-foreground mt-1 line-clamp-3 flex-grow text-sm'>
+                  <p className='text-muted-foreground mt-1 line-clamp-3 h-12 flex-grow overflow-ellipsis'>
                     {entry.description}
                   </p>
                 </div>
@@ -321,7 +321,7 @@ export default function PortalMemoriaGallery() {
                 <img
                   src={selectedEntry.image_url}
                   alt={`Fotografía de ${selectedEntry.name} ${selectedEntry.surname}`}
-                  className='h-64 w-full object-cover md:h-80'
+                  className='h-full w-full object-cover'
                 />
               </div>
 
