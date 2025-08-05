@@ -1,4 +1,5 @@
 ---
+import Image from 'astro/components/Image.astro'
 import type { TimelineEvent } from 'packages/pure/types'
 
 interface Props {
@@ -25,7 +26,7 @@ const { class: className, events } = Astro.props
           <div class='content-image-block hidden w-5/12 p-2 md:block'>
             <a href={event.link.href} aria-hidden='true' tabindex='-1'>
               <div class='aspect-video overflow-hidden shadow-md'>
-                <img
+                <Image
                   height={350}
                   width={600}
                   src={event.image.src}

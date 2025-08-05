@@ -1,9 +1,11 @@
 ---
+import Image from 'astro/components/Image.astro'
 import config from 'virtual:config'
 
+import unlp from '@/assets/tools/unlp.svg'
+
 import { Icon } from '../user'
-import Image from 'astro/components/Image.astro'
-import crespo from '@/assets/tools/unlp.svg'
+
 const year = new Date().getFullYear()
 const footerConf = config.footer
 
@@ -20,7 +22,7 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
   <div class='border-t pt-5'>
     <div class='flex items-center gap-y-3 max-sm:flex-col sm:justify-between sm:gap-y-0'>
       <div
-        class='flex items-center gap-x-4 gap-y-2 text-muted-foreground max-sm:flex-col [&_a]:text-foreground'
+        class='text-muted-foreground [&_a]:text-foreground flex items-center gap-x-4 gap-y-2 max-sm:flex-col'
       >
         {/* Position 1 */}
         {
@@ -78,26 +80,25 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
 
       {/* Social Brands */}
       <div class='flex items-center gap-x-4'>
-            <a
-              class='inline-block text-muted-foreground transition-all hover:text-muted-foreground/75'
-              href='https://www.info.unlp.edu.ar/'
-              aria-label='Enlace al sitio de la Universidad Nacional de La Plata, Facultad de Informática'
-            >
-            <Image
-                src={crespo}
-                alt={`Fotografía de `}
-                loading='lazy'
-                width="35"
-                height="230"
-                class="bg-white rounded-full"
-              />
-            
-            </a>
+        <a
+          class='text-muted-foreground hover:text-muted-foreground/75 inline-block transition-all'
+          href='https://www.info.unlp.edu.ar/'
+          aria-label='Enlace al sitio de la Universidad Nacional de La Plata, Facultad de Informática'
+        >
+          <Image
+            src={unlp}
+            alt={`Fotografía de `}
+            loading='eager'
+            width='35'
+            height='230'
+            class='rounded-full bg-white'
+          />
+        </a>
         {
           footerConf.social &&
             Object.entries(footerConf.social).map(([platform, { label, url }]) => (
               <a
-                class='inline-block text-muted-foreground transition-all hover:text-muted-foreground/75'
+                class='text-muted-foreground hover:text-muted-foreground/75 inline-block transition-all'
                 href={url}
                 aria-label={label}
               >
@@ -105,7 +106,6 @@ const footerLink1 = footerConf.links?.filter(({ pos }) => pos === 1) || []
               </a>
             ))
         }
-
       </div>
     </div>
   </div>
