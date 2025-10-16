@@ -14,6 +14,7 @@ export type Story = {
   difficulty: string
   background: string
   featured?: boolean
+  author: string
 }
 
 export default function RelatosMainContentFirebase() {
@@ -42,7 +43,8 @@ export default function RelatosMainContentFirebase() {
             duration: `${Math.ceil(relato.content.length / 200)} min`,
             difficulty: 'Emotiva',
             background: relato.banner_image_url,
-            featured: index === 0 // Mark first relato as featured
+            // featured: index === 0
+            author:  `${relato.name} ${relato.surname}`
           })
         )
 

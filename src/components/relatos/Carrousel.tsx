@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import type { Story } from './RelatosMainContent'
+import type { Story } from './RelatosMainContentFirebase'
 
 export default function Carrousel({ stories }: { stories: Story[] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -53,11 +53,20 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
                   {story.title}
                 </p>
 
+                <div className='text-foreground mb-4 flex items-center justify-between text-sm font-bold'>
+                  <span className='flex items-center gap-2'>
+                    Autor: {story.author}
+                  </span>
+                </div>
+
                 <p className='text-foreground mb-4 h-24 overflow-hidden text-sm leading-relaxed'>
                   {story.description}
                 </p>
 
-                <div className='text-foreground mb-4 flex items-center justify-between text-sm font-bold'>
+
+                
+
+                 <div className='text-foreground mb-4 flex items-center justify-between text-sm font-bold'>
                   <span className='flex items-center gap-2'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
