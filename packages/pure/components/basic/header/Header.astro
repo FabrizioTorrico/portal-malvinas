@@ -29,7 +29,7 @@ const isRoot = Astro.url.pathname === '/'
 
     <div class='flex items-center gap-x-2' style='flex-direction: row-reverse;'>
       <!-- Action Buttons -->
-      <div class='relative z-30 flex gap-x-4 group-[.not-top]:gap-x-2' style='transition:gap 0.3s'>
+      <div class='relative z-30 flex gap-x-4' style='transition:gap 0.3s'>
         <!-- Settings Panel Toggle Button -->
         <button
           id='toggleSettingsPanel'
@@ -58,7 +58,28 @@ const isRoot = Astro.url.pathname === '/'
       </div>
 
       <!-- Mobile Menu -->
-      <MobileMenu menuItems={typedConfig.header.menu} isRoot={isRoot} />
+       
+<div
+  id='headerExpandContent'
+  class='dark:group-[.expanded.not-top]:bg-muted max-md:group-[.expanded.not-top]:bg-primary end-0 start-0 top-12 grid border border-transparent group-[.expanded]:block group-[.not-top]:rounded-b-xl max-md:absolute max-md:hidden max-md:group-[.not-top]:px-4 max-md:group-[.not-top]:py-2 sm:grid-rows-1 '
+>
+  <div
+    class={(isRoot ? 'dark:text-accent ' : '') +
+      ' group-[.not-top]:color-white flex flex-col items-center justify-center overflow-hidden sm:flex-row'}
+  >
+    {
+      typedConfig.header.menu.map((item) => (
+        <a
+          href={item.link}
+          class='group-[.not-top]:hover:text-secondary dark:hover-text-accent dark:group-[.not-top]:hover:text-primary w-full flex-none grow px-5 py-2 text-right font-medium transition-none sm:w-fit'
+        >
+          {item.title}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
     </div>
   </div>
 </header-component>
@@ -128,14 +149,7 @@ const isRoot = Astro.url.pathname === '/'
 
 <style>
   /* Header Component Styles */
-  header-component {
-    transition:
-      padding 0.3s,
-      transform 0.3s,
-      margin-inline 0.3s,
-      border 0.15s,
-      background-color 0.3s;
-  }
+
 
   header-component.not-top {
     box-shadow:
@@ -151,7 +165,9 @@ const isRoot = Astro.url.pathname === '/'
 
   /* Mobile Menu Styles */
   @media (max-width: 768px) {
+  
     #headerExpandContent {
+      opacity: 0;
       grid-template-rows: 0fr;
       transition:
         opacity 0.3s,
@@ -162,6 +178,7 @@ const isRoot = Astro.url.pathname === '/'
 
     .expanded #headerExpandContent {
       grid-template-rows: 1fr;
+      opacity: 1;
     }
 
     .expanded.not-top #headerExpandContent {
@@ -171,7 +188,7 @@ const isRoot = Astro.url.pathname === '/'
         rgba(39, 39, 42, 0.08) 0px 10px 15px -3px,
         rgba(39, 39, 42, 0.08) 0px 4px 6px -4px;
     }
-  }
+
 
   /* Font System Styles */
   :root {

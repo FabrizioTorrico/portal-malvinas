@@ -22,9 +22,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.3.0",
+    "@astrojs/markdown-remark": "^6.3.8",
+    "@astrojs/react": "^4.4.0",
     "@astrojs/rss": "^4.0.11",
-    "@astrojs/vercel": "^8.1.4",
+    "@astrojs/vercel": "^8.2.10",
     "@blocknote/core": "^0.34.0",
     "@blocknote/mantine": "^0.34.0",
     "@blocknote/react": "^0.34.0",

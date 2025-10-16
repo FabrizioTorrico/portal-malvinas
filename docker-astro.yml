@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  astro:
+    image: oven/bun:latest
+    container_name: astro_app
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "4322:4321"
+    command: >
+      sh -c "bun install && bun run dev"

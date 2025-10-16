@@ -19,7 +19,7 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
 
   const getCardClasses = (index: number) => {
     const baseClasses =
-      'absolute w-80 h-fit bg-card  border-primary border-3 rounded-xl p-6 cursor-pointer shadow-2xl transition-all duration-700 ease-out'
+      'absolute w-80 h-fit bg-card  border-primary border-3 rounded-xl p-6 cursor-pointer shadow-2xl lg:transition-all lg:duration-700 ease-out'
 
     if (index === currentIndex) {
       return `${baseClasses} left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-105 z-10 shadow-[0_30px_60px_rgba(207,219,237,0.2)]`
@@ -44,11 +44,6 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
                 onClick={() => goToStory(index)}
                 aria-hidden={index !== currentIndex}
               >
-                {story.featured && (
-                  <div className='absolute -right-3 -top-3 animate-pulse rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 p-2 text-[#221833] shadow-lg'>
-                    {/* <Star className='h-5 w-5 fill-current' /> */}
-                  </div>
-                )}
 
                 <label className='bg-secondary text-primary mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-bold tracking-wider'>
                   {story.categoryLabel}

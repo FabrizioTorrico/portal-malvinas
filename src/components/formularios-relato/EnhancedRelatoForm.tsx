@@ -96,6 +96,7 @@ const EnhancedRelatoForm: FC = () => {
 
   const validateForm = async (): Promise<boolean> => {
     try {
+      console.log('validating')
       // Get current content from editor
       const content = await editor.blocksToMarkdownLossy(editor.document)
 
@@ -306,7 +307,6 @@ const EnhancedRelatoForm: FC = () => {
               formErrors.name ? 'border-red-500 bg-red-50' : ''
             }`}
             placeholder='ej. Juan Pedro'
-            required
             disabled={submissionState.isSubmitting}
           />
           {formErrors.name && <p className='mt-1 text-sm text-red-600'>{formErrors.name}</p>}
