@@ -18,8 +18,6 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
   }
 
   const getCardClasses = (index: number) => {
-    // CLASES BASE MODIFICADAS: Añade left-1/2 y top-1/2 para que todas las cartas
-    // tengan el mismo punto de anclaje inicial para la transición.
     const baseClasses =
       'absolute w-80 h-fit bg-card border-primary border-3 rounded-xl p-6 cursor-pointer shadow-2xl lg:transition-all lg:duration-700 ease-out left-1/2 top-1/2' // <-- ¡Aquí el cambio!
 
@@ -28,10 +26,10 @@ export default function Carrousel({ stories }: { stories: Story[] }) {
       return `${baseClasses} transform -translate-x-1/2 -translate-y-1/2 scale-105 z-10 shadow-[0_30px_60px_rgba(207,219,237,0.2)]`
     } else if (index === (currentIndex - 1 + stories.length) % stories.length) {
       // izquierda: Movida a la izquierda del centro.
-      return `${baseClasses} transform -translate-x-[150%] -translate-y-1/2 scale-80 opacity-60 z-5` // Ajusta -translate-x-[150%] según necesites
+      return `${baseClasses} transform -translate-x-1/2 lg:-translate-x-[150%] -translate-y-1/2 scale-80 opacity-60 z-5` // Ajusta -translate-x-[150%] según necesites
     } else if (index === (currentIndex + 1) % stories.length) {
       // derecha: Movida a la derecha del centro.
-      return `${baseClasses} transform translate-x-[50%] -translate-y-1/2 scale-80 opacity-60 z-5` // Ajusta translate-x-[50%] según necesites
+      return `${baseClasses} transform -translate-x-1/2 lg:translate-x-[50%] -translate-y-1/2 scale-80 opacity-60 z-5` // Ajusta translate-x-[50%] según necesites
     } else {
       // atras: Misma posición central (invisible), lista para aparecer de forma fluida.
       return `${baseClasses} transform -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0`

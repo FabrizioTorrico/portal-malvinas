@@ -24,10 +24,7 @@ import {
   updateStyle
 } from './src/plugins/shiki-transformers.ts'
 import config from './src/site.config.ts'
-import umami from '@yeskunall/astro-umami'
-import { loadEnv } from "vite"
 
-const {UMAMI_ID} = loadEnv(process.env.NODE_ENV || "", process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
   // Top-Level Options
@@ -63,9 +60,7 @@ export default defineConfig({
 
   // Temporary fix vercel adapter
   // static build method is not needed
-  react(), umami({
-    id: UMAMI_ID
-  })],
+  react()],
   // root: './my-project-directory',
 
   // Prefetch Options

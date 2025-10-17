@@ -37,10 +37,10 @@
 }
 
 @font-face {
-  font-family: 'Balboa';
-  src: url('/fonts/BalboaCondensed-Bold.otf') format('opentype'),
-       url('/fonts/BalboaCondensed-Bold.woff2') format('woff2'),
-       url('/fonts/BalboaCondensed-Bold.woff') format('woff');
+  font-family: 'Balboa Condensed';
+  src: url('/fonts/BalboaCondensed-Bold.woff2') format('woff2'), 
+       url('/fonts/BalboaCondensed-Bold.woff') format('woff'),  
+       url('/fonts/BalboaCondensed-Bold.otf') format('opentype'); 
   font-style: normal;
   font-display: swap;
 }
