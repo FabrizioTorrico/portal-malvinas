@@ -60,7 +60,7 @@ If you want to add new social media, you need to modify the following files:
 ### Other Files to Replace
 
 - `public/favicon`: The site's favicon. You can generate a favicon at [favicon.io](https://favicon.io/favicon-converter/)
-- `public/images/social-card.png`: The site's social card
+- `public/images/social-card.webp`: The site's social card
 - `src/assets/`: This directory contains client-rendered avatars, sponsorship QR codes, and other images. Please replace them with your own images
 
 ## Other Pages
