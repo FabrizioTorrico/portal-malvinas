@@ -32,11 +32,11 @@ export class HeaderController {
 
     let preScrollY = window.scrollY
     this.state.isScrolled = preScrollY > SCROLL_THRESHOLD
-    this.element.classList.toggle('not-top', this.state.isScrolled)
+    this.updateNotTopClass()
 
     window.addEventListener('scroll', () => {
       this.state.isScrolled = window.scrollY > SCROLL_THRESHOLD
-      this.element.classList.toggle('not-top', this.state.isScrolled)
+      this.updateNotTopClass()
       this.element.dataset.show = 'true'
       preScrollY = window.scrollY
     })
@@ -50,9 +50,10 @@ export class HeaderController {
       this.state.isExpanded = this.element.classList.toggle('expanded')
       toggleMenuBtn.setAttribute('aria-expanded', this.state.isExpanded.toString())
       
-      if (this.state.isExpanded && this.state.isSettingsPanelExpanded) {
-        this.closeSettingsPanel()
-      }
+      // Update not-top class when menu state changes
+      this.updateNotTopClass()
+      
+     
     })
   }
 
@@ -139,6 +140,16 @@ export class HeaderController {
     this.element.classList.remove('expanded')
     const toggleBtn = this.element.querySelector('#toggleMenu')
     toggleBtn?.setAttribute('aria-expanded', 'false')
+    
+    // Update not-top class when menu closes
+    this.updateNotTopClass()
+  }
+
+  private updateNotTopClass() {
+    // Apply not-top class if scrolled OR if menu is expanded (only on root page)
+    const shouldApplyNotTop = (this.isRoot && this.state.isScrolled) || this.state.isScrolled || this.state.isExpanded
+    console.log(shouldApplyNotTop, this.state.isExpanded)
+    this.element.classList.toggle('not-top', shouldApplyNotTop)
   }
 
   private closeSettingsPanel() {

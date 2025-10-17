@@ -38,7 +38,9 @@
 
 @font-face {
   font-family: 'Balboa';
-  src: url('/fonts/BalboaCondensed-Bold.ttf');
+  src: url('/fonts/BalboaCondensed-Bold.otf') format('opentype'),
+       url('/fonts/BalboaCondensed-Bold.woff2') format('woff2'),
+       url('/fonts/BalboaCondensed-Bold.woff') format('woff');
   font-style: normal;
   font-display: swap;
 }
