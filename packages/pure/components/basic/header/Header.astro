@@ -14,13 +14,13 @@ const isRoot = Astro.url.pathname === '/'
   aria-label='Barra de navegación principal'
   role='navigation'
   class={(!isRoot ? 'not-top ' : '') +
-    '[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center px-1.5 md:h-16'}
+    '[&.not-top]:bg-primary dark:[&.not-top]:bg-muted group fixed left-0 z-30 flex h-14 w-full items-center justify-center md:h-16'}
 >
   <div class='flex w-full max-w-[70rem] items-center justify-between px-4 lg:px-10'>
     <!-- Logo/Title -->
     <a
       class={(isRoot ? 'dark:text-accent' : '') +
-        ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary z-30 text-xl font-semibold'}
+        ' group-[.not-top]:color-white group-[.not-top]:hover:text-secondary dark:group-[.not-top]:hover:text-primary z-30 text-md md:text-xl font-semibold'}
       style='transition:margin-inline 0.3s'
       href='/'
     >

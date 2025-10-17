@@ -155,7 +155,7 @@ export default function RelatosMainContentFirebase() {
 
       {/* All Stories Grid Section */}
       {stories.length > 0 && (
-        <div className='flex flex-col gap-y-10 bg-white px-6 py-10'>
+        <div className='flex flex-col gap-y-10 bg-white'>
           <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
             <div className='flex flex-col gap-2'>
               <h2 className='font-balboa text-4xl md:text-6xl'>Todos los Relatos</h2>
