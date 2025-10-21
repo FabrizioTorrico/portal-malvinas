@@ -155,7 +155,7 @@ export default function RelatosMainContentFirebase() {
 
       {/* All Stories Grid Section */}
       {stories.length > 0 && (
-        <div className='flex flex-col gap-y-10 bg-white'>
+        <div className='flex flex-col gap-y-10 bg-background'>
           <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
             <div className='flex flex-col gap-2'>
               <h2 className='font-balboa text-4xl md:text-6xl'>Todos los Relatos</h2>
@@ -201,8 +201,8 @@ export default function RelatosMainContentFirebase() {
 
           {/* No search results */}
           {filteredStories.length === 0 && searchQuery ? (
-            <div className='flex items-center justify-center py-20'>
-              <div className='max-w-md rounded-lg bg-gray-50 p-8 text-center'>
+            <div className='flex items-center justify-center py-20 '>
+              <div className='max-w-md rounded-lg bg-card p-8 text-center'>
                 <svg
                   className='mx-auto mb-4 h-16 w-16 text-gray-400'
                   fill='currentColor'
@@ -214,10 +214,10 @@ export default function RelatosMainContentFirebase() {
                     clipRule='evenodd'
                   />
                 </svg>
-                <h3 className='mb-2 text-xl font-semibold text-gray-800'>
+                <h3 className='mb-2 text-xl font-semibold text-card-foreground'>
                   No se encontraron resultados
                 </h3>
-                <p className='mb-4 text-gray-600'>
+                <p className='mb-4 text-foreground'>
                   No hay relatos que coincidan con "{searchQuery}". Intenta con otros términos.
                 </p>
                 <button
@@ -261,7 +261,7 @@ export default function RelatosMainContentFirebase() {
                       {story.description}
                     </p>
                     
-                    <div className='flex items-center justify-between text-sm text-gray-600 mb-4'>
+                    <div className='flex items-center justify-between text-sm text-foreground mb-4'>
                       <span className='flex items-center gap-1'>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
